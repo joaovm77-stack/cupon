@@ -1,5 +1,7 @@
 'use strict';
 (() => {
+  const SUPABASE_URL = 'https://ukqiobckfsgahozbwldu.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_WcykbhPLYzsWxIGjwirHWg_LrYNwfhq';
   const screens = ['login', 'registro', 'recuperar', 'restablecer', 'cuenta'];
   function showScreen(focusHeading) {
     const requested = window.location.hash.slice(1);
