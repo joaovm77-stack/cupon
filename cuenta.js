@@ -35,6 +35,32 @@ async function supabaseAuth(endpoint, data, method = 'POST') {
   }
 
   if (password.length < 12) {
+    const registroForm = document.getElementById('registro-form');
+
+if (registroForm) {
+  registroForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('registro-email').value;
+    const password = document.getElementById('registro-password').value;
+    const confirmPassword = document.getElementById('registro-confirm').value;
+    const note = document.getElementById('registro-note');
+    const button = registroForm.querySelector('button[type="submit"]');
+
+    button.disabled = true;
+    note.textContent = 'Creando tu cuenta...';
+
+    try {
+      await registrarUsuario(email, password, confirmPassword);
+      note.textContent = 'Revisa tu correo electrónico para confirmar tu cuenta.';
+      registroForm.reset();
+    } catch (error) {
+      note.textContent = error.message || 'No fue posible crear tu cuenta.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
     throw new Error('La contraseña debe tener al menos 12 caracteres.');
   }
 
