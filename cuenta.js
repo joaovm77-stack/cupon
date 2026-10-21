@@ -40,10 +40,7 @@ async function supabaseAuth(endpoint, data, method = 'POST') {
 
   return await supabaseAuth('signup', {
     email: email.trim(),
-    password,
-    options: {
-      emailRedirectTo: window.location.origin + '/cuenta.html'
-    }
+    password
   });
 }
     const registroForm = document.getElementById('registro-form');
