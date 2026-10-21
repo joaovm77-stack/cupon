@@ -35,6 +35,17 @@ async function supabaseAuth(endpoint, data, method = 'POST') {
   }
 
   if (password.length < 12) {
+      throw new Error('La contraseña debe tener al menos 12 caracteres.');
+     }
+
+  return await supabaseAuth('signup', {
+    email: email.trim(),
+    password,
+    options: {
+      emailRedirectTo: window.location.origin + '/cuenta.html'
+    }
+  });
+}
     const registroForm = document.getElementById('registro-form');
 
 if (registroForm) {
@@ -56,19 +67,8 @@ if (registroForm) {
       registroForm.reset();
     } catch (error) {
       note.textContent = error.message || 'No fue posible crear tu cuenta.';
-    } finally {
+       } finally {
       button.disabled = false;
-    }
-  });
-}
-    throw new Error('La contraseña debe tener al menos 12 caracteres.');
-  }
-
-  return await supabaseAuth('signup', {
-    email: email.trim(),
-    password,
-    options: {
-      emailRedirectTo: window.location.origin + '/cuenta.html'
     }
   });
 }
@@ -84,11 +84,7 @@ if (registroForm) {
     const heading = document.getElementById(active + '-title');
     document.title = heading.textContent + ' | Cupón+';
     if (focusHeading) heading.focus();
-  }
-  // UI preview only: never submit credentials or create an authenticated state.
-  for (const form of document.querySelectorAll('form')) {
-    form.addEventListener('submit', event => event.preventDefault());
-  }
+    }
   window.addEventListener('hashchange', () => showScreen(true));
   showScreen(false);
 })();
