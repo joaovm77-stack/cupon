@@ -12,8 +12,8 @@
 <body>
 <header><a class="logo" href="/" aria-label="Cupón+, inicio">cupón<span>+</span></a><a class="back" href="/">Volver a los cupones</a></header>
 <main>
-<div class="notice preview"><strong>Vista previa · Acceso aún no disponible</strong><br>Estas pantallas son una propuesta visual. No se crean cuentas, no se envían correos ni se inicia sesión. Los campos están deshabilitados.</div>
-<nav aria-label="Pantallas de la vista previa"><a href="#login">Ingresar</a><a href="#registro">Crear cuenta</a><a href="#recuperar">Recuperar acceso</a><a href="#cuenta">Mi cuenta</a></nav>
+<div class="notice preview"><strong>Registro de cuentas</strong><br>Puedes crear una cuenta con tu correo electrónico. El inicio de sesión, la recuperación de contraseña y las demás funciones siguen en preparación.</div>
+<nav aria-label="Pantallas de la cuenta"><a href="#login">Ingresar</a><a href="#registro">Crear cuenta</a><a href="#recuperar">Recuperar acceso</a><a href="#cuenta">Mi cuenta</a></nav>
 <section class="card" id="login" aria-labelledby="login-title">
 <span class="badge">Tu cuenta Cupón+</span>
 <h1 id="login-title" tabindex="-1">¡Qué gusto verte!</h1>
@@ -31,14 +31,14 @@
 <section class="card" id="registro" aria-labelledby="registro-title" hidden>
 <span class="badge">Únete a Cupón+</span><h1 id="registro-title" tabindex="-1">Crea tu cuenta</h1>
 <p>Usa tu correo electrónico para registrarte.</p>
-<form id="registro-form" aria-describedby="registro-note"><fieldset disabled><legend class="sr-only">Datos de registro</legend>
+<form id="registro-form" aria-describedby="registro-note"><fieldset><legend class="sr-only">Datos de registro</legend>
 <label for="registro-email">Correo electrónico</label><input id="registro-email" type="email" autocomplete="username" required>
 <label for="registro-password">Contraseña</label><input id="registro-password" type="password" autocomplete="new-password" minlength="12" required aria-describedby="password-help">
 <p id="password-help" class="small">Usa al menos 12 caracteres y una contraseña que no uses en otros sitios.</p>
 <label for="registro-confirm">Confirma tu contraseña</label><input id="registro-confirm" type="password" autocomplete="new-password" minlength="12" required>
 <button type="submit">Crear cuenta</button></fieldset>
-<p id="registro-note" class="small">El registro y el correo de confirmación aún no están habilitados.</p></form>
-<div class="notice">Antes de habilitar el registro, podrás consultar el aviso de privacidad y las condiciones del servicio.</div>
+<p id="registro-note" class="small" role="status" aria-live="polite">Introduce tus datos para registrarte. Si se requiere confirmación, revisa tu correo electrónico.</p></form>
+<div class="notice">No compartas tu contraseña. Consulta el aviso de privacidad y las condiciones del servicio antes de registrarte.</div>
 <p class="bottom-link">¿Ya tienes cuenta? <a href="#login">Inicia sesión</a></p>
 </section>
 <section class="card" id="recuperar" aria-labelledby="recuperar-title" hidden>
