@@ -29,9 +29,23 @@ async function supabaseAuth(endpoint, data, method = 'POST') {
 
   return result;
 }
+  async function registrarUsuario(email, password, confirmPassword) {
+  if (password !== confirmPassword) {
+    throw new Error('Las contraseñas no coinciden.');
+  }
 
-  
-  
+  if (password.length < 12) {
+    throw new Error('La contraseña debe tener al menos 12 caracteres.');
+  }
+
+  return await supabaseAuth('signup', {
+    email: email.trim(),
+    password,
+    options: {
+      emailRedirectTo: window.location.origin + '/cuenta.html'
+    }
+  });
+}
   const screens = ['login', 'registro', 'recuperar', 'restablecer', 'cuenta'];
   function showScreen(focusHeading) {
     const requested = window.location.hash.slice(1);
