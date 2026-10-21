@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Promociones y cupones de descuento. Consulta las condiciones antes de participar.">
+<title>Cupón+ | Promociones y cupones</title>
+<meta name="application-name" content="Cupón+">
+<meta property="og:site_name" content="Cupón+">
+<meta property="og:title" content="Cupón+ | Promociones y cupones">
+<meta property="og:description" content="Explora una demostración de cupones y promociones en español de México. Consulta los códigos de ejemplo y sus condiciones.">
+<meta property="og:type" content="website">
+<style>
+:root{--green:#18b95d;--yellow:#ffe600;--ink:#191919;--muted:#707070;--bg:#f5f6f7;--line:#e6e6e6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.7px}.logo span{color:var(--green)}
+.balance{font-size:12px;background:#fffbe0;border:1px solid var(--yellow);border-radius:10px;padding:9px 12px;text-align:right}.balance strong{display:block;font-size:15px}
+main{max-width:520px;margin:22px auto;padding:0 14px 40px}.progress{height:6px;background:#e2e2e2;border-radius:10px;margin-bottom:20px;overflow:hidden}.progress span{display:block;height:100%;width:20%;background:var(--green);transition:width .2s}
+.card{background:white;border:1px solid var(--line);border-radius:18px;padding:22px 18px;box-shadow:0 6px 22px #00000008}
+.badge{display:inline-block;background:#e8fff0;color:#087a37;padding:6px 10px;border-radius:30px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+h1{font-size:27px;line-height:1.12;margin:14px 0 10px}p{line-height:1.55;color:#555;font-size:14px}
+.hero{background:#fff8c2;border-radius:14px;padding:22px 12px;text-align:center;margin:18px 0}.hero .emoji{font-size:42px}.hero strong{display:block;font-size:19px;margin-top:8px}
+button,.button{display:block;width:100%;border:0;border-radius:11px;background:var(--yellow);color:#111;padding:15px 16px;font-size:15px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;margin-top:14px}
+button.green{background:var(--green);color:white}button.secondary{background:#f0f0f0}
+input,select{width:100%;padding:14px;border:1px solid #d4d4d4;border-radius:10px;font-size:15px;margin:7px 0 12px;background:white}
+label{font-size:12px;font-weight:800;display:block;margin-top:12px}
+.notice{background:#f7f7f7;border-radius:10px;padding:12px;font-size:12px;color:#555;line-height:1.5;margin-top:14px}
+.steps{display:flex;gap:8px;margin:18px 0}.step{flex:1;background:#f1f1f1;border-radius:8px;padding:9px 4px;text-align:center;font-size:10px;color:#777}.step.active{background:#e8fff0;color:#087a37;font-weight:bold}
+.coupon{border-radius:14px;padding:20px;background:#e6a21b;color:#fff;text-align:center;margin:18px 0}.coupon.pink{background:#994e59}.coupon .code{font-size:23px;font-weight:900;letter-spacing:3px;margin-top:12px}
+.success{font-size:52px;color:var(--green);text-align:center}.hidden{display:none}.small{font-size:11px;color:#777}.footer{text-align:center;font-size:11px;color:#777;padding:18px}
+@media(min-width:600px){main{margin-top:32px}}
+</style>
+</head>
+<body>
+<header><div class="logo">cupón<span>+</span></div><div class="balance">CUPONES CONSULTADOS<strong id="count">0</strong></div></header>
+<main>
+<div class="progress"><span id="bar"></span></div>
+<section class="card" id="screen1">
+<span class="badge">Promociones disponibles</span>
+<h1>¡Encuentra tus cupones!</h1>
+<p>Explora promociones y revisa las condiciones antes de usar cada cupón. Esta demostración no entrega dinero ni realiza retiros.</p>
+<div class="hero"><div class="emoji">🎟️</div><strong>Tu próxima promoción puede estar aquí</strong><p>Consulta el cupón de ejemplo y conoce cómo funciona.</p></div>
+<button onclick="go(2)">Ver cupón</button>
+<a class="button" href="/cuenta.html#login" style="background:#f0f0f0">Mi cuenta · Vista previa</a>
+<div class="notice">Los cupones de esta demo son ilustrativos. Para publicar promociones reales, reemplaza los ejemplos por códigos autorizados y agrega sus términos y vigencia.</div>
+</section>
+<section class="card hidden" id="screen2">
+<span class="badge">Cupón de ejemplo</span><h1>Revisa los detalles</h1>
+<div class="coupon"><div style="font-size:11px;font-weight:bold">CÓDIGO PROMOCIONAL DEMO</div><div class="emoji" style="font-size:36px;margin:10px">🛍️</div><div class="code">MX-8128</div></div>
+<p>Este código es solo una muestra de cómo se verá una promoción. No está afiliado a ninguna marca ni garantiza un descuento real.</p>
+<label for="couponCode">Código del cupón</label><input id="couponCode" maxlength="20" placeholder="Escribe MX-8128">
+<button onclick="checkCoupon()">Validar cupón</button><button class="secondary" onclick="go(1)">Volver</button>
+<p id="couponMsg" class="small" aria-live="polite"></p>
+</section>
+<section class="card hidden" id="screen3">
+<div class="success">✓</div><h1>¡Listo! Cupón revisado</h1>
+<p>La demostración funciona correctamente. Para que un cupón sea válido en México, publica el código real, las fechas de vigencia, las restricciones y el comercio participante.</p>
+<div class="notice"><strong>Transparencia:</strong> esta página no genera saldos, ganancias ni promesas de retiro. No ingreses CURP, CLABE, datos bancarios ni información personal en esta demo.</div>
+<button class="green" onclick="go(4)">Ver cómo continuar</button>
+</section>
+<section class="card hidden" id="screen4">
+<span class="badge">Siguiente paso</span><h1>Configura tu promoción real</h1>
+<p>Antes de lanzar el sitio, prepara estos datos:</p>
+<ul style="font-size:14px;line-height:1.8;color:#555;padding-left:20px">
+<li>Nombre y datos de contacto del negocio.</li><li>Código de descuento autorizado.</li><li>Vigencia, restricciones y términos.</li><li>Política de privacidad si recopilas datos.</li><li>Dominio y canal de atención al cliente.</li>
+</ul>
+<button onclick="go(5)">Ver resumen</button><button class="secondary" onclick="go(2)">Volver al cupón</button>
+</section>
+<section class="card hidden" id="screen5">
+<div class="success">✓</div><h1>Tu demo está lista</h1>
+<p>Ya puedes probar el recorrido completo. Antes de compartirla con clientes, cambia el contenido de ejemplo por promociones verificadas y publica las condiciones legales correspondientes.</p>
+<button class="green" onclick="restart()">Volver al inicio</button>
+</section>
+<div class="footer">Sitio de demostración · Español (México) · Consulta siempre los términos de cada promoción.</div>
+</main>
+<script>
+let current=1, count=0;
+function go(n){document.getElementById('screen'+current).classList.add('hidden');current=n;document.getElementById('screen'+current).classList.remove('hidden');document.getElementById('bar').style.width=(n*20)+'%';window.scrollTo({top:0,behavior:'smooth'});}
+function checkCoupon(){const v=document.getElementById('couponCode').value.trim().toUpperCase();const msg=document.getElementById('couponMsg');if(v==='MX-8128'){count++;document.getElementById('count').textContent=count;msg.textContent='Código de demostración reconocido. No representa un descuento real.';setTimeout(()=>go(3),700);}else{msg.textContent='Código no reconocido. Para esta demo, escribe MX-8128.';}}
+function restart(){go(1);}
+</script>
+</body>
+</html>
