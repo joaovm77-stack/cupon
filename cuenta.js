@@ -59,9 +59,15 @@ if (registroForm) {
     note.textContent = 'Creando tu cuenta...';
 
     try {
-      await registrarUsuario(email, password, confirmPassword);
-      note.textContent = 'Revisa tu correo electrónico para confirmar tu cuenta.';
+      const result = await registrarUsuario(email, password, confirmPassword);
       registroForm.reset();
+      if (result.access_token && result.refresh_token) {
+        storeSession(result);
+        note.textContent = '¡Cuenta creada! Ya puedes usar tu cuenta sin confirmar el correo.';
+        window.location.hash = '#cuenta';
+      } else {
+        note.textContent = 'Cuenta creada. Si tu proyecto requiere confirmación, revisa tu correo; de lo contrario, inicia sesión.';
+      }
     } catch (error) {
       note.textContent = error.message || 'No fue posible crear tu cuenta.';
        } finally {
