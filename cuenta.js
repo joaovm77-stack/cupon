@@ -247,6 +247,10 @@ if (registroForm) {
   function showScreen(focusHeading) {
     const requested = window.location.hash.slice(1);
     const active = screens.includes(requested) ? requested : 'login';
+    if (active === 'cuenta' && !accessToken) {
+      window.location.hash = '#login';
+      return;
+    }
     for (const id of screens) document.getElementById(id).hidden = id !== active;
     for (const link of document.querySelectorAll('nav a')) {
       if (link.hash === '#' + active) link.setAttribute('aria-current', 'page');
