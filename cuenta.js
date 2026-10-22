@@ -8,6 +8,9 @@ async function supabaseAuth(endpoint, data, method = 'POST') {
     `${SUPABASE_URL}/auth/v1/${endpoint}`,
     {
       method,
+      cache: 'no-store',
+      referrerPolicy: 'no-referrer',
+      credentials: 'omit',
       headers: {
         'apikey': SUPABASE_KEY,
         'Content-Type': 'application/json'
