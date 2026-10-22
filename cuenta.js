@@ -73,13 +73,54 @@ if (registroForm) {
   const accountEmail = document.getElementById('account-email');
   const accountStatus = document.getElementById('account-status');
   const logoutButton = document.getElementById('logout-button');
+  const SESSION_KEY = 'cupon-mexico-auth-v1';
   let accessToken = null;
+  let refreshToken = null;
 
-  function setSession(email, token) {
-    accessToken = token;
-    accountEmail.textContent = email || 'Correo no disponible';
-    accountStatus.textContent = token ? 'Sesión iniciada' : 'No has iniciado sesión.';
-    logoutButton.disabled = !token;
+  function storeSession(session) {
+    if (!session.access_token || !session.refresh_token) {
+      throw new Error('No se recibió una sesión válida.');
+    }
+    accessToken = session.access_token;
+    refreshToken = session.refresh_token;
+    localStorage.setItem(SESSION_KEY, JSON.stringify({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    }));
+    accountEmail.textContent = session.user?.email || 'Correo no disponible';
+    accountStatus.textContent = 'Sesión iniciada';
+    logoutButton.disabled = false;
+  }
+
+  function clearSession() {
+    accessToken = null;
+    refreshToken = null;
+    localStorage.removeItem(SESSION_KEY);
+    accountEmail.textContent = 'Se mostrará después de iniciar sesión.';
+    accountStatus.textContent = 'No has iniciado sesión.';
+    logoutButton.disabled = true;
+  }
+
+  async function restoreSession() {
+    const stored = localStorage.getItem(SESSION_KEY);
+    if (!stored) return;
+    accountStatus.textContent = 'Verificando sesión...';
+    try {
+      const saved = JSON.parse(stored);
+      if (!saved.refresh_token) throw new Error('Sesión inválida.');
+      const renewed = await supabaseAuth('token?grant_type=refresh_token', {
+        refresh_token: saved.refresh_token
+      });
+      storeSession(renewed);
+    } catch (error) {
+      // Keep tokens only if the network is temporarily unavailable.
+      if (error instanceof TypeError) {
+        accountStatus.textContent = 'No se pudo verificar la sesión. Actualiza la página.';
+      } else {
+        clearSession();
+        if (window.location.hash === '#cuenta') window.location.hash = '#login';
+      }
+    }
   }
 
   if (loginForm) {
@@ -93,8 +134,7 @@ if (registroForm) {
       note.textContent = 'Iniciando sesión...';
       try {
         const session = await supabaseAuth('token?grant_type=password', { email, password });
-        if (!session.access_token) throw new Error('No se recibió una sesión válida.');
-        setSession(session.user?.email || email, session.access_token);
+        storeSession(session);
         document.getElementById('login-password').value = '';
         note.textContent = 'Sesión iniciada correctamente.';
         window.location.hash = '#cuenta';
@@ -107,16 +147,17 @@ if (registroForm) {
   }
 
   logoutButton.addEventListener('click', async () => {
-    if (accessToken) {
+    const token = accessToken;
+    clearSession();
+    window.location.hash = '#login';
+    if (token) {
       try {
         await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
           method: 'POST',
-          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${accessToken}` }
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${token}` }
         });
-      } catch (_) { /* Clear local session even if the network is unavailable. */ }
+      } catch (_) { /* Local session is already cleared. */ }
     }
-    setSession('', null);
-    window.location.hash = '#login';
   });
 
   const screens = ['login', 'registro', 'recuperar', 'restablecer', 'cuenta'];
@@ -134,4 +175,5 @@ if (registroForm) {
     }
   window.addEventListener('hashchange', () => showScreen(true));
   showScreen(false);
+  restoreSession();
 })();
