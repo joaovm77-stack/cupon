@@ -3,8 +3,8 @@
   "short_name": "Cupón de la Vez",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#12a857",
+  "background_color": "#f5fff2",
+  "theme_color": "#005c27",
   "icons": [
     {
       "src": "logo-cupon.svg",
