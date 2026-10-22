@@ -212,7 +212,7 @@ if (registroForm) {
     button.disabled = true;
     note.textContent = 'Enviando solicitud...';
     try {
-      const redirect = window.location.origin + '/cuenta.html';
+      const redirect = new URL('cuenta.html', window.location.href).origin + new URL('cuenta.html', window.location.href).pathname;
       await supabaseAuth('recover?redirect_to=' + encodeURIComponent(redirect), { email });
       note.textContent = 'Si existe una cuenta con este correo, recibirás un enlace para cambiar tu contraseña. Revisa también spam.';
       recuperarForm.reset();
