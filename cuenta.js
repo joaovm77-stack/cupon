@@ -160,6 +160,89 @@ if (registroForm) {
     }
   });
 
+  const recuperarForm = document.getElementById('recuperar-form');
+  const restablecerForm = document.getElementById('restablecer-form');
+  let recoveryToken = null;
+
+  recuperarForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const note = document.getElementById('recuperar-note');
+    const button = recuperarForm.querySelector('button[type="submit"]');
+    const email = document.getElementById('recuperar-email').value.trim();
+    button.disabled = true;
+    note.textContent = 'Enviando solicitud...';
+    try {
+      const redirect = window.location.origin + '/cuenta.html';
+      await supabaseAuth('recover?redirect_to=' + encodeURIComponent(redirect), { email });
+      note.textContent = 'Si existe una cuenta con este correo, recibirás un enlace para cambiar tu contraseña. Revisa también spam.';
+      recuperarForm.reset();
+    } catch (error) {
+      note.textContent = error.message || 'No se pudo solicitar el enlace. Inténtalo más tarde.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  function acceptRecoveryLink() {
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    if (params.get('type') !== 'recovery') return false;
+    const token = params.get('access_token');
+    const note = document.getElementById('restablecer-note');
+    window.history.replaceState(null, '', window.location.pathname + window.location.search + '#restablecer');
+    if (!token) {
+      note.textContent = 'El enlace de recuperación no es válido. Solicita uno nuevo.';
+      return true;
+    }
+    recoveryToken = token;
+    restablecerForm.querySelector('fieldset').disabled = false;
+    note.textContent = 'Introduce una nueva contraseña de al menos 12 caracteres.';
+    return true;
+  }
+
+  restablecerForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const note = document.getElementById('restablecer-note');
+    if (!recoveryToken) {
+      note.textContent = 'Solicita un enlace de recuperación nuevo.';
+      return;
+    }
+    const password = document.getElementById('new-password').value;
+    const confirm = document.getElementById('new-confirm').value;
+    if (password !== confirm) {
+      note.textContent = 'Las contraseñas no coinciden.';
+      return;
+    }
+    if (password.length < 12) {
+      note.textContent = 'La contraseña debe tener al menos 12 caracteres.';
+      return;
+    }
+    const button = restablecerForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    note.textContent = 'Guardando contraseña...';
+    try {
+      const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+        method: 'PUT',
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${recoveryToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.msg || result.error_description || result.message || 'No se pudo actualizar la contraseña.');
+      recoveryToken = null;
+      restablecerForm.reset();
+      restablecerForm.querySelector('fieldset').disabled = true;
+      note.textContent = 'Contraseña actualizada. Ya puedes iniciar sesión.';
+      clearSession();
+    } catch (error) {
+      note.textContent = error.message || 'El enlace puede haber caducado. Solicita uno nuevo.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+
   const screens = ['login', 'registro', 'recuperar', 'restablecer', 'cuenta'];
   function showScreen(focusHeading) {
     const requested = window.location.hash.slice(1);
@@ -174,6 +257,7 @@ if (registroForm) {
     if (focusHeading) heading.focus();
     }
   window.addEventListener('hashchange', () => showScreen(true));
+  acceptRecoveryLink();
   showScreen(false);
-  restoreSession();
+  if (!recoveryToken) restoreSession();
 })();
