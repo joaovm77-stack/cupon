@@ -43,7 +43,7 @@ button,.btn{transition:transform .18s,filter .18s}button:not(:disabled):active,.
 button:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 .coupon{position:relative;overflow:hidden;border:2px dashed #fff8;box-shadow:0 12px 28px #0002}
 .coupon:before{content:'✦';position:absolute;right:15px;top:5px;font-size:36px;opacity:.25}
-.progress-shell{max-width:530px;margin:10px auto 0;padding:0 14px}
+.progress-shell{display:none!important}
 .progress-track{height:12px;background:#e6ece7;border-radius:20px;overflow:hidden}
 .progress-fill{height:100%;width:0;background:linear-gradient(90deg,#16b55e,#f5d434);transition:width .45s}
 .progress-label{text-align:center;font-size:13px;font-weight:800;color:#146b39;margin:7px 0}
@@ -55,7 +55,7 @@ button:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 #finish .reward{color:#158848}
 #finish .offer-label{font-size:12px;font-weight:800;color:#20653c;background:#eaf8ee;border-radius:12px;padding:9px}
 @media(prefers-reduced-motion:reduce){.card{animation:none}button,.btn,.progress-fill{transition:none}}
-</style></head><body><div class="money-rain" id="moneyRain" aria-hidden="true"></div>
+</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"></head><body><div class="money-rain" id="moneyRain" aria-hidden="true"></div>
 <header><div class="logo">cupón<span> de la vez</span></div><div class="balance">SALDO VIRTUAL<strong id="balance">$0.00 MXN</strong></div></header>
 <div style="max-width:530px;margin:14px auto 0;padding:0 20px;text-align:center"><img src="logo-cupon.svg" alt="Cupón de la Vez" style="width:100%;max-width:420px;height:auto;display:block;margin:auto"></div><main><div class="links"><a href="cuenta.html#login">Mi cuenta</a><a href="admin-campanas.html">Panel de campañas (demo)</a></div>
 <section class="card" id="welcome"><div class="check">✓</div><h1>¡Bienvenido a Cupón de la Vez!</h1><p>Descubre 3 cupones de marcas diferentes en cada ronda. Escribe sus códigos y acumula saldo virtual en pesos mexicanos.</p><label style="display:block;margin:14px 0"><input type="checkbox" id="acceptAtStart"> He leído y acepto los <a href="#terminos" id="termsLink">Términos y Condiciones</a>.</label><button class="green" id="start" disabled>Comenzar</button><p class="small" id="localHistory">Tu actividad se guarda en este dispositivo.</p></section>
