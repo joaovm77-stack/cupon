@@ -69,6 +69,56 @@ if (registroForm) {
     }
   });
 }
+  const loginForm = document.getElementById('login-form');
+  const accountEmail = document.getElementById('account-email');
+  const accountStatus = document.getElementById('account-status');
+  const logoutButton = document.getElementById('logout-button');
+  let accessToken = null;
+
+  function setSession(email, token) {
+    accessToken = token;
+    accountEmail.textContent = email || 'Correo no disponible';
+    accountStatus.textContent = token ? 'Sesión iniciada' : 'No has iniciado sesión.';
+    logoutButton.disabled = !token;
+  }
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const note = document.getElementById('login-note');
+      const button = loginForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      note.textContent = 'Iniciando sesión...';
+      try {
+        const session = await supabaseAuth('token?grant_type=password', { email, password });
+        if (!session.access_token) throw new Error('No se recibió una sesión válida.');
+        setSession(session.user?.email || email, session.access_token);
+        document.getElementById('login-password').value = '';
+        note.textContent = 'Sesión iniciada correctamente.';
+        window.location.hash = '#cuenta';
+      } catch (error) {
+        note.textContent = error.message || 'No fue posible iniciar sesión.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+
+  logoutButton.addEventListener('click', async () => {
+    if (accessToken) {
+      try {
+        await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+          method: 'POST',
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${accessToken}` }
+        });
+      } catch (_) { /* Clear local session even if the network is unavailable. */ }
+    }
+    setSession('', null);
+    window.location.hash = '#login';
+  });
+
   const screens = ['login', 'registro', 'recuperar', 'restablecer', 'cuenta'];
   function showScreen(focusHeading) {
     const requested = window.location.hash.slice(1);
