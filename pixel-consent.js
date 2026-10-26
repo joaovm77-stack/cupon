@@ -23,7 +23,8 @@ window.cuponTrack=track;
 function store(value){
  accepted=value;
  try{localStorage.setItem(KEY,value?'accepted':'rejected')}catch(_){}
- if(value)initialize();
+ if(value){if(initialized&&typeof window.fbq==='function')window.fbq('consent','grant');initialize()}
+ else if(initialized&&typeof window.fbq==='function')window.fbq('consent','revoke');
  const banner=document.getElementById('analyticsConsent');if(banner)banner.hidden=true;
  const panel=document.getElementById('privacyPreference');if(panel)panel.hidden=false;
 }
