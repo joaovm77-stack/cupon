@@ -8,6 +8,7 @@
 <title>Seu Crédito | Simulação pessoal</title>
 <link rel="stylesheet" href="./flow.css">
 <script defer src="./flow-app.js"></script>
+<script defer src="./analytics.js"></script>
 </head>
 <body>
 <header>
@@ -24,8 +25,19 @@
 <main id="app"><p style="text-align:center;padding:45px">Carregando simulador…</p></main>
 <footer class="footer">
  <span>© <span id="year">2026</span> Seu Crédito · Simulador informativo independente.</span>
- <span><button type="button" data-legal="terms">Termos de uso</button> · <button type="button" data-legal="privacy">Privacidade</button> · <button type="button" data-legal="help">Ajuda</button></span>
+ <span><button type="button" data-legal="terms">Termos de uso</button> · <button type="button" data-legal="privacy">Privacidade</button> · <button type="button" data-legal="help">Ajuda</button> · <button type="button" id="analyticsSettings">Preferências de cookies</button></span>
 </footer>
+
+<section class="analytics-consent" id="analyticsBanner" aria-label="Preferências de análise de visitas" hidden>
+  <div class="analytics-consent-text">
+    <strong>Podemos contar sua visita?</strong>
+    <p>Com sua autorização, usamos Google Analytics para medir visitas, etapas abertas e cliques no WhatsApp. Não enviamos CPF, nome nem o conteúdo dos formulários ao Analytics. Você pode recusar.</p>
+  </div>
+  <div class="analytics-consent-actions">
+    <button type="button" id="analyticsDecline">Recusar</button>
+    <button type="button" id="analyticsAccept">Permitir análise</button>
+  </div>
+</section>
 <dialog class="dialog" id="legal" aria-labelledby="legalTitle"><h2 id="legalTitle">Informações</h2><p id="legalText"></p><button id="closeLegal" class="btn orange-btn" type="button">Entendi</button></dialog>
 </body>
 </html>
