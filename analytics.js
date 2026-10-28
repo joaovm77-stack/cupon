@@ -1,7 +1,7 @@
 /* Google Analytics 4 — ativado somente após consentimento do visitante. */
 (function () {
   "use strict";
-  const measurementId = "G-LM98YZEQCL";
+  const measurementId = "G-EGEGHLLPWM";
   const storageKey = "seu-credito-consentimento-analytics-v1";
   const banner = document.getElementById("analyticsBanner");
   const accept = document.getElementById("analyticsAccept");
