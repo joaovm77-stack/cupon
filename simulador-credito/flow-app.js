@@ -22,8 +22,8 @@ function chatPanel(){
  const msgs=[
    ["Quero entender melhor sua necessidade. Qual a finalidade principal?"],
    ["Você possui alguma conta bancária ativa para conversar sobre alternativas de recebimento?"],
-   ["Qual modalidade de recebimento você prefere considerar? Não informe chave PIX aqui."],
-   ["Qual tipo de instituição você utiliza? Não precisamos de número de conta ou agência."],
+   ["Se preferir PIX, qual tipo de chave você usaria? Informe apenas o tipo, nunca a chave completa."],
+   ["Qual banco você costuma utilizar? Informe somente o nome da instituição, sem conta ou agência."],
    ["Quando gostaria de começar a pagar, caso exista uma proposta real?"],
    ["Vamos revisar o valor e o prazo que você deseja simular."],
    ["Preenchimento concluído! Esta página não consultou o Serasa, não calculou score e não aprovou empréstimo."]
@@ -31,8 +31,8 @@ function chatPanel(){
  const opts=[
   ["Pagar dívidas","Investir no negócio","Reformar a casa","Emergência médica","Outros motivos"],
   ["Banco tradicional","Banco digital","Ambos","Ainda não tenho conta"],
-  ["PIX (preferência apenas)","Transferência bancária","Não tenho preferência"],
-  ["Banco tradicional","Banco digital","Outro","Prefiro não informar"],
+  ["Chave CPF (somente tipo)","Chave celular (somente tipo)","Chave e-mail (somente tipo)","Chave aleatória (somente tipo)","Prefiro transferência"],
+  ["Banco do Brasil","Caixa","Itaú","Bradesco","Santander","Nubank","Inter","Outro / prefiro não informar"],
   ["Em 30 dias","Em 60 dias","Em 90 dias"]
  ];
  let content='<div class="bubble">'+msgs[Math.min(phase,6)][0]+'</div>';
@@ -94,7 +94,7 @@ root.addEventListener("click",e=>{
  if(b.dataset.go!==undefined)return go(Number(b.dataset.go));
  if(b.dataset.next!==undefined)return next(Number(b.dataset.next));
  if(b.dataset.choice){st[b.dataset.choice]=b.dataset.value;root.querySelectorAll("button[data-choice]").forEach(x=>{if(x.dataset.choice!==b.dataset.choice)return;let active=x.dataset.value===b.dataset.value;x.classList.toggle("active",active);let indicator=x.querySelector("span");if(indicator)indicator.textContent=active?"✓":"○"});let err=document.getElementById("err");if(err)err.textContent="";return}
- if(b.dataset.chatAnswer!==undefined){st.chatAnswers[st.chatPhase]=b.dataset.chatAnswer;st.chatPhase++;render();return}
+ if(b.dataset.chatAnswer!==undefined){if(st.chatPhase===0)st.purpose=b.dataset.chatAnswer;st.chatAnswers[st.chatPhase]=b.dataset.chatAnswer;st.chatPhase++;render();return}
  if(b.hasAttribute("data-chat-back")){st.chatPhase=Math.max(0,st.chatPhase-1);st.chatAnswers.length=st.chatPhase;render();return}
  if(b.hasAttribute("data-chat-confirm")){st.chatPhase=6;render();return}
  if(b.dataset.termChoice){st.term=Number(b.dataset.termChoice);const container=document.getElementById("paymentList");if(container)container.innerHTML=termOptions();return}
