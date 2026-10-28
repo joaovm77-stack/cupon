@@ -35,3 +35,26 @@ body.welcome-mode {
  .welcome-description {font-size:14px!important}
 }
 @media(max-width:420px) {.welcome-mode .form-panel {padding:43px 20px 29px}.welcome-continue {max-width:none}}
+
+
+/* Etapas de cadastro ilustrativo — validação local, sem envio de documentos. */
+.text-field{
+ width:100%;min-height:53px;border:1.5px solid #dde6f1;border-radius:12px;
+ padding:13px 15px;font-size:14px;background:#fff;color:#253c59;
+ transition:border-color .16s,box-shadow .16s;
+}
+.text-field:focus{border-color:#5680f9;box-shadow:0 0 0 3px #3869f719;outline:none}
+.text-field::placeholder{color:#9aa8bd}
+.text-field[type=date]{color-scheme:light}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field-grid .field-group{min-width:0}
+.field-hint{font-size:11px;line-height:1.5}
+.optional-field{color:#8493a9;font-weight:500;font-size:11px}
+.privacy-note{display:flex;align-items:flex-start;gap:10px;margin:13px 0 0;
+ border:1px solid #d9eee5;background:#f3faf6;color:#37775e;
+ padding:13px 15px;border-radius:12px;font-size:11px;line-height:1.65}
+.privacy-note span{flex:none}
+@media(max-width:530px){
+ .field-grid{grid-template-columns:1fr;gap:0}
+ .field-grid .field-group{margin-bottom:24px}
+}
