@@ -1,193 +1,31 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#132a58">
-  <meta name="description" content="Simule parcelas de empréstimo de forma simples. Cálculo ilustrativo e transparente, sem coleta de dados pessoais.">
-  <title>Seu Crédito | Simulação de empréstimo</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ff790b">
+<meta name="description" content="Simulador informativo de empréstimos com atendimento opcional por WhatsApp.">
+<title>Seu Crédito | Simulação pessoal</title>
+<link rel="stylesheet" href="./flow.css">
+<script defer src="./flow-app.js"></script>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="site-header">
-      <a class="brand" href="./" aria-label="Seu Crédito, página inicial">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="7" y="7" width="34" height="34" rx="12" fill="currentColor"/><path d="M16 25.5l6 6L33 17" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <span class="brand-text">seu<span>crédito</span><small>SIMULAÇÃO DIGITAL</small></span>
-      </a>
-      <div class="header-right"><span class="status"><span class="status-dot"></span> Atendimento digital</span><span class="secure">◈ Ambiente informativo</span></div>
-    </header>
-
-    <main class="main-wrap">
-      <section class="content-card" aria-label="Simulação de crédito">
-        <aside class="side-panel">
-          <div class="side-glow" aria-hidden="true"></div>
-          <span class="side-kicker">SEU PRÓXIMO PASSO</span>
-          <h2>Mais clareza para decidir.</h2>
-          <p>Entenda como o valor e o prazo influenciam uma parcela estimada, antes de conversar sobre crédito.</p>
-          <div class="visual-card" aria-hidden="true">
-            <div class="visual-card-top"><span>EXEMPLO DE SIMULAÇÃO</span><span class="visual-dot">●</span></div>
-            <div class="visual-big">R$ 5.000<span>,00</span></div>
-            <div class="visual-line"></div>
-            <div class="visual-flex"><span>Parcelas simuladas</span><strong>12 meses</strong></div>
-            <div class="visual-flex"><span>Condições</span><strong>Ilustrativas</strong></div>
-          </div>
-          <div class="side-foot"><span class="check-bubble">✓</span><span>Sem promessa de aprovação<br>Sem depósito antecipado</span></div>
-        </aside>
-
-        <div class="form-panel">
-          <div class="progress-wrap">
-            <div class="progress-top"><span id="progressLabel">Bem-vindo</span><span id="progressFraction">Início</span></div>
-            <div class="progress-track" role="progressbar" aria-label="Etapas concluídas" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div>
-          </div>
-
-          <div id="alert" class="alert" role="alert" hidden></div>
-
-          <section class="step is-active welcome-section" data-step="0" aria-labelledby="introTitle">
-            <div class="welcome-visual" aria-hidden="true">
-              <div class="welcome-visual-halo"></div>
-              <div class="welcome-visual-center">✓</div>
-              <span class="welcome-spark welcome-spark-one">✦</span>
-              <span class="welcome-spark welcome-spark-two">✦</span>
-            </div>
-            <div class="eyebrow welcome-eyebrow">SIMULAÇÃO DE CRÉDITO</div>
-            <h1 id="introTitle">Seja bem-vindo(a)!</h1>
-            <p class="lead welcome-description">Vamos ajudar você a entender uma simulação de empréstimo de forma simples e rápida.</p>
-            <div class="welcome-status"><span class="welcome-status-dot"></span><span>Atendimento digital • Experiência guiada</span></div>
-            <button type="button" class="btn btn-primary btn-main welcome-continue" id="startBtn">Continuar <span aria-hidden="true">→</span></button>
-            <div class="welcome-footnote">Simulação informativa, sem consulta de CPF, aprovação ou cobrança antecipada.</div>
-            <p class="micro welcome-legal">Ao continuar, consulte os <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> e a <button type="button" class="link-button" data-legal="privacidade">Política de Privacidade</button>.</p>
-          </section>
-
-          <section class="step" data-step="1" aria-labelledby="purposeTitle" hidden>
-            <div class="eyebrow">PASSO 01 · OBJETIVO</div>
-            <h1 id="purposeTitle">Para que você precisa do crédito?</h1>
-            <p class="lead">Selecione a opção que mais se aproxima da sua necessidade.</p>
-            <div class="option-grid purpose-grid" id="purposeOptions" role="group" aria-label="Finalidade do empréstimo">
-              <button type="button" class="option" data-purpose="Organizar minhas contas"><span class="option-icon">▤</span><span>Organizar minhas contas</span><span class="option-arrow">↗</span></button>
-              <button type="button" class="option" data-purpose="Reformar a casa"><span class="option-icon">⌂</span><span>Reformar a casa</span><span class="option-arrow">↗</span></button>
-              <button type="button" class="option" data-purpose="Investir no negócio"><span class="option-icon">▥</span><span>Investir no negócio</span><span class="option-arrow">↗</span></button>
-              <button type="button" class="option" data-purpose="Imprevistos"><span class="option-icon">✳</span><span>Imprevistos</span><span class="option-arrow">↗</span></button>
-              <button type="button" class="option option-wide" data-purpose="Outros motivos"><span class="option-icon">✦</span><span>Outros motivos</span><span class="option-arrow">↗</span></button>
-            </div>
-            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="purposeNext">Continuar →</button></div>
-          </section>
-
-          <section class="step" data-step="2" aria-labelledby="valuesTitle" hidden>
-            <div class="eyebrow">PASSO 02 · VALOR E PRAZO</div>
-            <h1 id="valuesTitle">Quanto você gostaria de simular?</h1>
-            <p class="lead">Ajuste o valor e a quantidade de parcelas. Você pode alterar quando quiser.</p>
-            <div class="field-group">
-              <label for="amountInput">Valor desejado</label>
-              <div class="money-input"><span>R$</span><input type="number" id="amountInput" inputmode="decimal" min="500" max="50000" step="100" value="5000" aria-describedby="amountHint"></div>
-              <input type="range" id="amountRange" min="500" max="50000" step="100" value="5000" aria-label="Valor desejado">
-              <div class="range-ends"><span>R$ 500</span><span>R$ 50.000</span></div>
-              <small id="amountHint">Valores entre R$ 500 e R$ 50.000.</small>
-            </div>
-            <div class="field-group"><label>Em quantas parcelas?</label>
-              <div class="month-grid" id="monthOptions" role="group" aria-label="Número de parcelas">
-                <button type="button" data-months="6">6x</button>
-                <button type="button" data-months="12" class="selected" aria-pressed="true">12x</button>
-                <button type="button" data-months="18">18x</button>
-                <button type="button" data-months="24">24x</button>
-                <button type="button" data-months="36">36x</button>
-                <button type="button" data-months="48">48x</button>
-              </div>
-            </div>
-            <div class="small-calculation"><span>Parcela ilustrativa de</span><strong id="miniPayment">—</strong><small>Exemplo a 2,49% ao mês, sem IOF ou tarifas.</small></div>
-            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="valuesNext">Continuar →</button></div>
-          </section>
-
-          <section class="step" data-step="3" aria-labelledby="identityTitle" hidden>
-            <div class="eyebrow">PASSO 03 · IDENTIFICAÇÃO</div>
-            <h1 id="identityTitle">Vamos conhecer você?</h1>
-            <p class="lead">Preencha os dados abaixo para completar a experiência. Nesta versão, são validados somente no seu navegador; não há consulta de CPF, envio nem armazenamento.</p>
-            <div class="field-group"><label for="fullName">Nome completo</label>
-              <input class="text-field" id="fullName" type="text" name="applicant_name" autocomplete="off" placeholder="Digite seu nome e sobrenome" maxlength="100" aria-required="true">
-            </div>
-            <div class="field-grid">
-              <div class="field-group"><label for="cpfInput">CPF</label>
-                <input class="text-field" id="cpfInput" type="text" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14" aria-describedby="cpfHint" aria-required="true">
-                <small id="cpfHint" class="field-hint">Conferimos apenas os dígitos verificadores, sem consultar bases externas.</small>
-              </div>
-              <div class="field-group"><label for="birthDate">Data de nascimento</label>
-                <input class="text-field" id="birthDate" type="date" autocomplete="off" aria-required="true">
-              </div>
-            </div>
-            <div class="privacy-note"><span aria-hidden="true">🔒</span> Os dados desta etapa não são transmitidos, salvos ou incluídos na mensagem do WhatsApp.</div>
-            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="identityNext">Continuar →</button></div>
-          </section>
-
-          <section class="step" data-step="4" aria-labelledby="contactTitle" hidden>
-            <div class="eyebrow">PASSO 04 · CONTATO</div>
-            <h1 id="contactTitle">Como podemos falar com você?</h1>
-            <p class="lead">Preencha o telefone e o e-mail para avançar na demonstração. Nenhuma mensagem será enviada automaticamente.</p>
-            <div class="field-group"><label for="phoneInput">Celular com DDD</label>
-              <input class="text-field" id="phoneInput" type="tel" inputmode="tel" autocomplete="off" placeholder="(00) 00000-0000" maxlength="15" aria-required="true">
-            </div>
-            <div class="field-group"><label for="emailInput">E-mail</label>
-              <input class="text-field" id="emailInput" type="email" autocomplete="off" placeholder="seuemail@exemplo.com" maxlength="150" aria-required="true">
-            </div>
-            <div class="field-group"><label for="zipInput">CEP <span class="optional-field">(opcional)</span></label>
-              <input class="text-field" id="zipInput" type="text" inputmode="numeric" autocomplete="off" placeholder="00000-000" maxlength="9">
-            </div>
-            <div class="privacy-note"><span aria-hidden="true">🔒</span> Nenhum dos dados pessoais digitados será enviado ao atendimento nesta versão.</div>
-            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="contactNext">Continuar →</button></div>
-          </section>
-
-          <section class="step" data-step="5" aria-labelledby="profileTitle" hidden>
-            <div class="eyebrow">PASSO 05 · PERFIL FINANCEIRO</div>
-            <h1 id="profileTitle">Está quase pronto!</h1>
-            <p class="lead">Escolha uma faixa de renda e sua ocupação para finalizar a simulação ilustrativa.</p>
-            <div class="field-group"><label for="income">Qual sua faixa de renda mensal?</label>
-              <select id="income">
-                <option value="">Selecione uma faixa</option>
-                <option value="Até R$ 1.500">Até R$ 1.500</option>
-                <option value="R$ 1.501 a R$ 3.000">R$ 1.501 a R$ 3.000</option>
-                <option value="R$ 3.001 a R$ 5.000">R$ 3.001 a R$ 5.000</option>
-                <option value="Mais de R$ 5.000">Mais de R$ 5.000</option>
-                <option value="Prefiro não informar">Prefiro não informar</option>
-              </select>
-            </div>
-            <div class="field-group"><label for="occupation">Sua ocupação atual</label>
-              <select id="occupation">
-                <option value="">Selecione sua ocupação</option>
-                <option value="Trabalho com carteira assinada">Trabalho com carteira assinada</option>
-                <option value="Autônomo(a) / MEI">Autônomo(a) / MEI</option>
-                <option value="Aposentado(a) / pensionista">Aposentado(a) / pensionista</option>
-                <option value="Servidor(a) público(a)">Servidor(a) público(a)</option>
-                <option value="Outra situação">Outra situação</option>
-                <option value="Prefiro não informar">Prefiro não informar</option>
-              </select>
-            </div>
-            <label class="checkbox-line"><input type="checkbox" id="adultConfirm"><span>Confirmo que tenho 18 anos ou mais.</span></label>
-            <label class="checkbox-line"><input type="checkbox" id="termsConfirm"><span>Li e concordo com os <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> e a <button type="button" class="link-button" data-legal="privacidade">Política de Privacidade</button> desta simulação.</span></label>
-            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="profileNext">Ver simulação →</button></div>
-          </section>
-
-          <section class="step" data-step="6" aria-labelledby="resultTitle" hidden>
-            <div class="success-emblem" aria-hidden="true">✓</div>
-            <div class="eyebrow">SIMULAÇÃO CONCLUÍDA</div>
-            <h1 id="resultTitle">Confira sua estimativa</h1>
-            <p class="lead">Esses números são apenas ilustrativos. Não houve consulta de crédito nem aprovação.</p>
-            <div class="result-card"><span>Parcela mensal estimada</span><strong id="resultPayment">—</strong><div class="result-description" id="resultMonths">—</div></div>
-            <div class="result-list">
-              <div><span>Valor simulado</span><strong id="resultAmount">—</strong></div>
-              <div><span>Taxa usada no exemplo</span><strong>2,49% ao mês</strong></div>
-              <div><span>Total matemático estimado</span><strong id="resultTotal">—</strong></div>
-              <div><span>Finalidade</span><strong id="resultPurpose">—</strong></div>
-            </div>
-            <div class="warning-box"><strong>Importante:</strong> Isto não é uma oferta de crédito. Estimativa calculada sem IOF, tarifas e seguros. Taxas reais, custo efetivo total (CET), elegibilidade e condições dependem da instituição que eventualmente oferecer o crédito. Nunca pague depósito antecipado para liberar um empréstimo.</div>
-            <div class="result-buttons"><button type="button" class="btn btn-primary btn-main" id="contactBtn">Falar com atendimento ↗</button><button type="button" class="btn btn-outline" id="copyBtn">Copiar resumo</button><button type="button" class="btn btn-ghost" id="restartBtn">↻ Fazer outra simulação</button></div>
-          </section>
-        </div>
-      </section>
-      <div class="below-card"><div><span class="below-symbol">⌁</span> Seu tempo importa. Simule com calma.</div><div>Sem envio de dados pessoais · Sem aprovação automática · Sem obrigação de contratar</div></div>
-    </main>
-
-    <footer class="site-footer"><span>© <span id="year">2026</span> Seu Crédito · Site demonstrativo de simulação.</span><span><button type="button" class="footer-link" data-legal="termos">Termos de Uso</button><span class="footer-dot">·</span><button type="button" class="footer-link" data-legal="privacidade">Privacidade</button></span></footer>
-  </div>
-  <dialog id="infoDialog" class="dialog" aria-labelledby="dialogTitle"><div class="dialog-head"><h2 id="dialogTitle"></h2><button type="button" id="dialogClose" aria-label="Fechar janela">✕</button></div><div id="dialogContent" class="dialog-content"></div><div class="dialog-actions"><button type="button" class="btn btn-primary" id="dialogOk">Entendi</button></div></dialog>
+<header>
+ <div class="head-inner">
+  <a class="logo" href="./" aria-label="Seu Crédito, início"><span class="star">✦</span><span>Seu<span class="orange">Crédito</span><small>simulação pessoal</small></span></a>
+  <nav class="topnav" aria-label="Principal">
+   <button type="button" data-jump="1">Simular</button>
+   <button type="button" data-legal="terms">Condições</button>
+   <button type="button" data-legal="help">Dúvidas</button>
+  </nav>
+  <button type="button" class="btn orange-btn" data-jump="1">Simular</button>
+ </div>
+</header>
+<main id="app"><p style="text-align:center;padding:45px">Carregando simulador…</p></main>
+<footer class="footer">
+ <span>© <span id="year">2026</span> Seu Crédito · Simulador informativo independente.</span>
+ <span><button type="button" data-legal="terms">Termos de uso</button> · <button type="button" data-legal="privacy">Privacidade</button> · <button type="button" data-legal="help">Ajuda</button></span>
+</footer>
+<dialog class="dialog" id="legal" aria-labelledby="legalTitle"><h2 id="legalTitle">Informações</h2><p id="legalText"></p><button id="closeLegal" class="btn orange-btn" type="button">Entendi</button></dialog>
 </body>
 </html>
