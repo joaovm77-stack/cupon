@@ -1,34 +1,27 @@
-# Seu Crédito — Funil de simulação (modelo demonstrativo)
+# Seu Crédito — simulador informativo
 
-Site estático, responsivo, em português do Brasil. Criado como um **modelo próprio inspirado em fluxos de atendimento digital**, não como cópia integral verificada de um site de terceiros. Não utiliza marcas, textos protegidos, logotipos ou integrações do site de referência.
+Funil independente em português brasileiro, com identidade visual própria, organizado em etapas guiadas e conversa automática.
 
-## Telas
+## Como funciona
 
-1. Boas-vindas e botão Continuar.
-2. Objetivo do empréstimo.
-3. Valor, prazo e cálculo ilustrativo de parcelas.
-4. Perfil geral e aceite dos Termos.
-5. Resultado com resumo, botão de cópia e contato opcional.
+O site apresenta a tela de boas-vindas, seleção do valor, identificação local, perguntas sobre renda, finalidade, ocupação, escolaridade e situação de crédito informada pelo visitante. Em seguida, uma conversa interativa reúne preferências de conta bancária, modalidade de recebimento, prazo para começar a pagar e valor do crédito.
 
-## Como testar
+Depois, oferece um comparativo matemático de parcelas, resumo informativo, orientações sobre contratação, condições da simulação, contatos opcionais e informações gerais sobre seguro prestamista, terminando com um botão para conversar via WhatsApp.
 
-Abra `index.html` no navegador. Não precisa instalar dependências nem executar um servidor. É compatível com hospedagem estática como Netlify ou GitHub Pages.
+Os campos de CPF, nome, nascimento, telefone e e-mail não são enviados a servidores pelo código do aplicativo, nem incluídos na mensagem de WhatsApp. O número informado é verificado apenas pelos dígitos matemáticos. Os campos de identidade são apagados ao avançar da identificação inicial; telefone e e-mail opcionais são apagados ao sair da etapa de contato. Não existe login, cadastro persistido ou análise de crédito neste projeto.
 
-## Ativar o botão de WhatsApp
+## Observações importantes
 
-Edite `app.js`, alterando `const WHATSAPP_NUMBER = "";` para seu número comercial no formato internacional, usando somente dígitos, por exemplo `5511999999999`. O visitante decide se quer abrir o WhatsApp e enviar o resumo. Por padrão, nenhum contato está configurado.
+- **Não é uma oferta de crédito**, nem aprovação ou pré-aprovação de empréstimo.
+- **Não consulta Serasa, SCR, Receita Federal ou instituições financeiras.**
+- **Não faz transferências PIX, gera comprovantes bancários ou contratos assinados.**
+- **Não cobra taxa antecipada nem oferece seguro como requisito para liberar dinheiro.**
+- A taxa de **2,49% ao mês** é puramente ilustrativa, sem IOF, seguro ou tarifas; portanto, o total não representa o CET de uma proposta real.
+- A conversa é **automática**, não uma pessoa online.
+- Todas as informações são demonstrativas. Antes de usar comercialmente, é necessário verificar a instituição responsável, a LGPD e a comunicação contratual adequada.
 
-## Personalização
+## Configuração e publicação
 
-- Nome e textos da marca: `index.html`.
-- Cores e layout: `styles.css`.
-- Taxa mensal **ilustrativa**: constante `MONTHLY_RATE` no `app.js`, hoje em 2,49% ao mês.
-- Valor permitido: entre R$ 500 e R$ 50.000; prazos de 6 a 48 meses.
+Arquivos ativos: `index.html`, `flow.css`, `flow-app.js`. O WhatsApp é configurado na constante `WA` dentro de `flow-app.js` e só recebe resumo da simulação após clique do visitante.
 
-## Atenção para uso comercial real
-
-Este projeto **não coleta CPF, documento, conta bancária, senha ou dados de cartão; não envia informações a banco de dados; não analisa crédito; não gera aprovação; não libera empréstimos e não cobra taxas**.
-
-Antes de usar comercialmente: informe razão social, CNPJ, canais verificáveis de atendimento, instituição financeira/parceiros quando aplicável, política de privacidade real, dados de CET e condições contratuais exigíveis e providencie revisão jurídica/LGPD. Nunca indique aprovação garantida nem exija pagamento antecipado para liberação de empréstimo.
-
-O link do GitHub exibe os **arquivos do site**, não necessariamente um site já hospedado. Para um domínio acessível, faça o deploy da pasta `simulador-credito` em uma hospedagem estática.
+O site já se encontra na pasta `simulador-credito/` da branch `main` do repositório `cupon`, com uma cópia independente na branch `site-simulador-credito`. Para abrir o endereço do GitHub Pages, use `https://joaovm77-stack.github.io/cupon/simulador-credito/`, desde que a publicação do GitHub Pages esteja ativa.
