@@ -48,3 +48,51 @@ main{min-height:calc(100vh - 150px)}.pane{display:none}.pane.show{display:block;
 .conditions-box b{color:#17113e}
 .conditions-box p{margin-bottom:0}
 @media(max-width:460px){.chat-simulator{padding:16px}.chat-simulator>strong{font-size:30px}.payment-option{padding:12px 10px}.payment-option strong{font-size:12px}}
+
+/* Comparação de cenários e resumo transparente, com layout inspirado nos cartões de referência. */
+.quotes-center,.confirmation-center{padding-top:36px;padding-bottom:52px}
+.quote-shell,.confirmation-shell{width:min(580px,100%)}
+.quote-intro{background:#fff;border-radius:20px;padding:29px 26px 23px;margin-bottom:18px;box-shadow:0 8px 23px #150b4610;border:1px solid #e7e7ea}
+.quote-label,.confirmation-kicker{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#e27016}
+.quote-intro h1{font-size:25px;margin:9px 0;color:#180f42}
+.quote-intro p{font-size:14px;line-height:1.6;color:#737886;margin:0}
+.quote-panel{background:#fff;border-radius:20px;box-shadow:0 8px 26px #150b4610;border:1px solid #e7e7ea;padding:24px}
+.quote-heading h2{margin:0 0 5px;font-size:23px;color:#1a1248}
+.quote-heading p{margin:0 0 19px;color:#7a7f8e;font-size:13px;line-height:1.55}
+.quote-options{display:grid;gap:12px;margin:17px 0 21px}
+.scenario-card{display:flex;align-items:center;gap:12px;width:100%;padding:18px 16px;border:2px solid #e4e5e8;border-radius:15px;text-align:left;background:#fff;min-height:104px;color:#16152a}
+.scenario-card.chosen{border-color:#ff780e;background:#fffbf3}
+.scenario-select{font-size:24px;color:#e0e1e4;flex:none}
+.scenario-card.chosen .scenario-select{color:#f87508}
+.scenario-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.scenario-copy>small,.scenario-rate>small{font-size:10px;color:#858997;font-weight:750;letter-spacing:.7px}
+.scenario-copy>strong{font-size:22px;font-weight:850;line-height:1.3;color:#17142c}
+.scenario-copy>span{font-size:11px;color:#858a96;line-height:1.55}
+.scenario-rate{text-align:right;display:flex;flex-direction:column;gap:3px}
+.scenario-rate b{font-size:16px;color:#179b53;white-space:nowrap}
+.quote-totals{border-top:1px solid #ececef;margin:0 0 15px;padding-top:8px}
+.quote-totals>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;font-size:13px;color:#6f7584}
+.quote-totals strong{font-weight:800;color:#191729;text-align:right}
+.quote-totals .safe-amount{color:#169e59}
+.quote-warning{background:#f5fbf6;border:1px solid #d1e9d6;color:#35724c;line-height:1.62;font-size:12px;border-radius:13px;padding:14px 16px;margin:17px 0 20px}
+.quote-back{margin-top:10px}
+.confirmation-shell{border:1px solid #e5e6ea;background:white;border-radius:21px;overflow:hidden;box-shadow:0 12px 30px #150b4610}
+.confirmation-banner{padding:35px 27px;background:#170c46;color:white}
+.confirmation-banner h1{font-size:27px;line-height:1.22;margin:10px 0}
+.confirmation-banner p{font-size:13px;line-height:1.7;color:#c8c3df;max-width:400px}
+.confirmation-kicker{color:#ffc23e}
+.confirmation-body{padding:27px}
+.confirmation-summary{background:#fff7e8;border:1px solid #f2ddbc;border-radius:14px;padding:19px;display:grid;gap:3px}
+.confirmation-summary>span{font-size:11px;color:#83818b}
+.confirmation-summary strong{font-size:31px;color:#180b45}
+.confirmation-summary small{color:#6f7281}
+.confirmation-lines{margin:20px 0 10px}
+.confirmation-lines>div{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid #e9e9ed;padding:12px 0;font-size:13px}
+.confirmation-lines>div span{color:#777c88}
+.confirmation-lines>div strong{color:#1a1742;text-align:right}
+.help-panel{border-top:1px solid #e9e9ec;margin-top:27px;padding-top:15px}
+.help-panel h2{font-size:19px;color:#1e1444;margin:6px 0}
+.help-panel>div{padding:11px 0;border-bottom:1px solid #efeff1}
+.help-panel b{font-size:13px;color:#282a3a}
+.help-panel p{font-size:12px;color:#737989;margin:4px 0 0;line-height:1.65}
+@media(max-width:510px){.quotes-center,.confirmation-center{padding-top:20px}.quote-panel,.confirmation-body{padding:18px}.quote-intro{padding:24px 18px}.scenario-card{padding:14px 10px;gap:8px}.scenario-copy>strong{font-size:18px}.scenario-rate b{font-size:13px}.scenario-copy>span{font-size:10px}.confirmation-banner{padding:27px 21px}}
