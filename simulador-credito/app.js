@@ -2,7 +2,7 @@
    Ex.: const WHATSAPP_NUMBER = "5511999999999"; Sem um número, o botão mostra instruções.
    Os dados respondidos neste demonstrador não são enviados a servidores. */
 "use strict";
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_NUMBER = "5537998375291";
 const MONTHLY_RATE = 0.0249; // Taxa fixa usada somente no exemplo matemático, NÃO é oferta de crédito.
 const state = { step: 0, purpose: "", amount: 5000, months: 12, income: "", occupation: "" };
 const $ = (id) => document.getElementById(id);
