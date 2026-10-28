@@ -44,14 +44,20 @@
 
           <div id="alert" class="alert" role="alert" hidden></div>
 
-          <section class="step is-active" data-step="0" aria-labelledby="introTitle">
-            <div class="hello-art" aria-hidden="true"><span class="hello-wave">👋</span><span class="hello-spark">✦</span></div>
-            <div class="eyebrow">BOAS-VINDAS</div>
-            <h1 id="introTitle">Olá! Vamos começar?</h1>
-            <p class="lead">Conecte-se a uma experiência simples para entender opções de empréstimo. São poucas perguntas e você poderá conferir uma <strong>estimativa de parcelas.</strong></p>
-            <div class="intro-note"><span class="note-icon">✓</span><span>Nesta versão, a simulação é demonstrativa e nenhum dado pessoal é enviado a servidores.</span></div>
-            <button type="button" class="btn btn-primary btn-main" id="startBtn">Continuar <span aria-hidden="true">→</span></button>
-            <p class="micro">Ao continuar, você pode consultar nossos <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> e <button type="button" class="link-button" data-legal="privacidade">Privacidade</button>.</p>
+          <section class="step is-active welcome-section" data-step="0" aria-labelledby="introTitle">
+            <div class="welcome-visual" aria-hidden="true">
+              <div class="welcome-visual-halo"></div>
+              <div class="welcome-visual-center">✓</div>
+              <span class="welcome-spark welcome-spark-one">✦</span>
+              <span class="welcome-spark welcome-spark-two">✦</span>
+            </div>
+            <div class="eyebrow welcome-eyebrow">SIMULAÇÃO DE CRÉDITO</div>
+            <h1 id="introTitle">Seja bem-vindo(a)!</h1>
+            <p class="lead welcome-description">Vamos ajudar você a entender uma simulação de empréstimo de forma simples e rápida.</p>
+            <div class="welcome-status"><span class="welcome-status-dot"></span><span>Atendimento digital • Experiência guiada</span></div>
+            <button type="button" class="btn btn-primary btn-main welcome-continue" id="startBtn">Continuar <span aria-hidden="true">→</span></button>
+            <div class="welcome-footnote">Simulação informativa, sem consulta de CPF, aprovação ou cobrança antecipada.</div>
+            <p class="micro welcome-legal">Ao continuar, consulte os <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> e a <button type="button" class="link-button" data-legal="privacidade">Política de Privacidade</button>.</p>
           </section>
 
           <section class="step" data-step="1" aria-labelledby="purposeTitle" hidden>
