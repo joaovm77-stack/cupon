@@ -18,6 +18,7 @@ function message(text) {
 function clearMessage() { alertBox.hidden = true; alertBox.textContent = ""; }
 function showStep(index) {
   state.step = index;
+  document.body.classList.toggle("welcome-mode",index === 0);
   steps.forEach((el) => { const active = Number(el.dataset.step) === index; el.hidden = !active; el.classList.toggle("is-active",active); });
   $("progressLabel").textContent = index ? "Sua simulação" : "Bem-vindo";
   $("progressFraction").textContent = index ? "Etapa " + index + " de 4" : "Início";
