@@ -49,7 +49,7 @@ root.addEventListener("click",e=>{
  const b=e.target.closest("button");if(!b)return;
  if(b.dataset.go!==undefined)return go(Number(b.dataset.go));
  if(b.dataset.next!==undefined)return next(Number(b.dataset.next));
- if(b.dataset.choice){st[b.dataset.choice]=b.dataset.value;render();return}
+ if(b.dataset.choice){st[b.dataset.choice]=b.dataset.value;root.querySelectorAll("button[data-choice]").forEach(x=>{if(x.dataset.choice!==b.dataset.choice)return;let active=x.dataset.value===b.dataset.value;x.classList.toggle("active",active);let indicator=x.querySelector("span");if(indicator)indicator.textContent=active?"✓":"○"});let err=document.getElementById("err");if(err)err.textContent="";return}
  if(b.dataset.chat){if(b.dataset.chat==="Alterar valor")return go(1);st.chat=b.dataset.chat;render();return}
  if(b.id==="wa"){
  const summary=["Olá! Gostaria de conversar sobre uma simulação de empréstimo.","Valor: "+money(st.amount),"Prazo: "+st.term+" meses","Finalidade: "+(st.purpose||"Não informada"),"Parcela apenas ilustrativa: "+money(estimate()),"Não houve aprovação, consulta cadastral ou oferta de crédito."].join("\n");
