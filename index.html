@@ -1,198 +1,150 @@
 <!doctype html>
-<html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="dns-prefetch" href="//cdn.jsdelivr.net"><meta name="description" content="Experiencia interactiva de cupones de demostración en México. Puntos virtuales expresados en MXN sin valor monetario."><title>Cupón de la Vez | Experiencia de cupones</title>
-<style>:root{font-family:Arial,Helvetica,sans-serif;color:#202622;background:#f7f8f7;--green:#19be63;--yellow:#ffeb00}*{box-sizing:border-box}body{margin:0}header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px 18px;border-bottom:1px solid #e7e7e7;gap:10px}.logo{font-weight:900;font-size:25px}.logo span{color:var(--green)}.balance{border:2px solid var(--yellow);border-radius:9px;padding:7px 12px;font-size:11px;text-align:center}.balance strong{display:block;font-size:17px}main{max-width:460px;margin:24px auto;padding:0 14px 24px}.card{background:#fff;border-radius:18px;padding:23px 20px;box-shadow:0 5px 24px #0000000c;margin:14px 0}.badge{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:800;text-align:center;color:#177b45}h1,h2{text-align:center}h1{font-size:27px}p{color:#505b54;line-height:1.55;font-size:14px;text-align:center}.check{text-align:center;color:var(--green);font-size:75px;line-height:1}.coupon{border-radius:15px;min-height:210px;background:linear-gradient(135deg,#e9a726,#c75d22);color:#fff;padding:24px;text-align:center;display:flex;flex-direction:column;justify-content:center;margin:18px 0}.coupon.alt{background:linear-gradient(135deg,#333842,#10151d)}.coupon.third{background:linear-gradient(135deg,#e65b29,#b82f1f)}.brand-fallback{display:block;background:white;color:#1c2328;border-radius:12px;padding:20px;margin:12px auto;font-size:30px;font-weight:900;width:fit-content}.brand-fallback[hidden]{display:none}.brand-logo[hidden]{display:none}.brand-logo{width:145px;height:90px;object-fit:contain;background:#fff;border-radius:12px;padding:14px;margin:12px auto;display:block}.coupon strong{font-size:20px}.coupon .code{font-size:30px;font-weight:900;letter-spacing:5px;margin-top:15px}.coupon small{font-size:12px;opacity:.92}label{font-weight:700;font-size:12px;display:block}input{width:100%;border:1px solid #ccd3ce;border-radius:10px;padding:14px;font-size:17px;margin:9px 0}button,.btn{display:block;width:100%;border:0;border-radius:10px;padding:15px;background:var(--yellow);font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;text-align:center;color:#151515;margin-top:13px}.green{background:var(--green);color:#fff}.muted{background:#f1f3f2}.hidden{display:none}.notice{background:#fffbe4;border:1px solid #efe19a;padding:13px;border-radius:10px;font-size:12px;line-height:1.5;color:#504b32}.reward{font-size:40px;font-weight:900;text-align:center}.small{font-size:12px;color:#69736b}.links{display:flex;gap:10px;justify-content:center;font-size:13px;padding:14px}a{color:#126a3d}footer details{text-align:left;background:#fff;border:1px solid #e1e5e2;border-radius:10px;padding:13px}footer summary{cursor:pointer;font-weight:700}footer details p{text-align:left;font-size:12px}footer{max-width:460px;margin:auto;padding:20px 15px 32px;text-align:center;color:#657168;font-size:12px;line-height:1.5}@media(min-width:600px){main{margin-top:35px}}</style><style>
-:root{--green:#18b85d;--yellow:#ffdf00;background:#fff;color:#171717}
-body{background:linear-gradient(180deg,#fff 0%,#fffdf2 100%);min-height:100vh}
-header{max-width:980px;margin:0 auto;border:0;padding:18px 20px 14px;position:relative}
-.logo{font-family:Georgia,serif;font-size:29px;letter-spacing:-1.3px;color:#171717}.logo span{color:#edb600}
-.balance{border:3px solid #f3db00;border-radius:12px;min-width:136px;background:#fff;padding:10px 15px;box-shadow:0 2px 0 #f5eb8c;font-weight:800}
-.balance strong{font-size:21px;color:#111}
-main{max-width:530px;margin:24px auto 10px}.card{border:1px solid #f0efeb;border-radius:21px;box-shadow:0 12px 32px #1414140b;padding:30px 25px}
-h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:800;font-size:31px;line-height:1.15;color:#111}
-.check{font-size:78px;font-weight:900;color:#19bd66}
-.badge{color:#272727;font-size:12px;letter-spacing:1.2px}
-.coupon{background:linear-gradient(135deg,#ffdc00,#efad00);color:#171717;min-height:255px;border:3px dashed #fff;border-radius:18px;box-shadow:0 5px 0 #e9b400;padding:18px}
-.coupon.alt{background:linear-gradient(135deg,#292929,#151515);color:#fff}
-.coupon.third{background:linear-gradient(135deg,#ffc400,#f39b00);color:#171717}
-.coupon .code{background:#ffffffeb;border:2px dashed #d1aa00;color:#171717;display:inline-block;align-self:center;padding:10px 17px;border-radius:9px;font-size:29px;letter-spacing:5px}
-.coupon small{font-weight:700}
-.brand-logo{border:2px solid #ffffff80;box-shadow:0 3px 10px #00000014}
-button,.btn{border-radius:13px;min-height:54px;background:var(--yellow);box-shadow:0 4px 0 #e5bd00}
-button.green,.btn.green{background:#15b95d;color:#fff;box-shadow:0 4px 0 #0b8d43}
-button.muted{box-shadow:none}
-.reward{font-family:Georgia,serif;font-size:49px}
-#finish{border-top:9px solid #ffcb00}
-#finish:before{content:'✓';display:block;text-align:center;font-size:50px;color:#fff;background:#f6ad00;border:7px solid #fff;box-shadow:0 0 0 7px #f6ad00;border-radius:50%;width:90px;height:90px;line-height:90px;margin:5px auto 26px}
-#finish>.check{display:none}
-#finish .btn.green{background:#ffcf00;color:#151515;box-shadow:0 4px 0 #e8a900}
-#finish .small{background:#fff9e5;padding:14px;border-radius:10px;line-height:1.6}
-.links{padding:6px 14px 12px}.links a{color:#454545}
-footer details{border:1px solid #e8e2cb;background:#fffdf2}
-@media(max-width:480px){header{padding:13px 14px}.logo{font-size:24px}.balance{min-width:122px}.balance strong{font-size:17px}.card{padding:24px 17px}h1,h2{font-size:27px}.coupon .code{font-size:24px}}
-</style><style>
-.money-rain{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden}
-.money-rain .coin{position:absolute;top:-55px;left:var(--x);font-size:var(--size);line-height:1;opacity:0;filter:drop-shadow(0 3px 3px #0002);animation:coinfall var(--duration) ease-in var(--delay) forwards}
-@keyframes coinfall{0%{transform:translate3d(0,-20px,0) rotate(0deg) scale(.6);opacity:0}10%{opacity:1}85%{opacity:1}100%{transform:translate3d(var(--drift),105vh,0) rotate(var(--spin)) scale(1);opacity:0}}
-@media(prefers-reduced-motion:reduce){.money-rain{display:none}}
-</style><link rel="manifest" href="manifest.webmanifest?v=25"><meta name="theme-color" content="#005c27"><style>
-:root{--green:#12a857;--yellow:#f8cc24}
-body{background:radial-gradient(circle at 50% 0,#fff5ca 0,#fff 52%);color:#17241c}
-.card{box-shadow:0 18px 45px #114a2017;border:1px solid #e9eddf;animation:rise .3s ease both}
-@keyframes rise{from{opacity:.5;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
-button,.btn{transition:transform .18s,filter .18s}button:not(:disabled):active,.btn:active{transform:scale(.98)}button:not(:disabled):hover,.btn:hover{filter:brightness(1.045)}
-button:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
-.coupon{position:relative;overflow:hidden;border:2px dashed #fff8;box-shadow:0 12px 28px #0002}
-.coupon:before{content:'✦';position:absolute;right:15px;top:5px;font-size:36px;opacity:.25}
-.progress-shell{display:none!important}
-.progress-track{height:12px;background:#e6ece7;border-radius:20px;overflow:hidden}
-.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#16b55e,#f5d434);transition:width .45s}
-.progress-label{text-align:center;font-size:13px;font-weight:800;color:#146b39;margin:7px 0}
-.utility{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:8px auto;font-size:12px}
-.utility select,.utility button{width:auto;min-height:35px;padding:7px 12px;margin:0;font-size:12px;box-shadow:none}
-.milestones{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:14px 0}
-.milestones span{background:#e8f8ee;border:1px solid #b9e9c9;border-radius:30px;padding:8px 10px;font-size:12px;font-weight:800}
-#finish{background:linear-gradient(160deg,#fff 70%,#fff7d6)}
-#finish .reward{color:#158848}
-#finish .offer-label{font-size:12px;font-weight:800;color:#20653c;background:#eaf8ee;border-radius:12px;padding:9px}
-@media(prefers-reduced-motion:reduce){.card{animation:none}button,.btn,.progress-fill{transition:none}}
-</style><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><style id="premium-v25">
-:root{--green:#108847;--yellow:#ffd34b;--ink:#17281d;--muted:#68766b;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-body{background:radial-gradient(ellipse 90% 330px at 50% 0,#f1ffe9 5%,#fff8e4 65%,#fafbf8 100%);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
-header{background:#ffffffde;border-bottom:1px solid #dfe9dc;padding:12px 18px;max-width:none;box-shadow:0 1px 12px #123b1e08}
-header>.logo{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:900;font-size:clamp(19px,4.7vw,27px);letter-spacing:-1.1px;color:#193524;line-height:1.12}
-.logo span{color:#12a45c}.logo small{display:block;font-family:Inter,ui-sans-serif,system-ui,sans-serif;font-weight:800;font-size:9px;letter-spacing:1.1px;color:#69816f;margin-top:5px}
-.balance{min-width:0;padding:8px 12px;border:1px solid #c7e7ce;background:#f0fbf1;box-shadow:none;border-radius:13px;font-size:9px;letter-spacing:.35px;white-space:nowrap;color:#177344}
-.balance strong{color:#0b783d;font-size:clamp(13px,3.4vw,20px);font-variant-numeric:tabular-nums;margin-top:2px}
-.hero-brand{max-width:530px;margin:0 auto;text-align:center;padding:5px 24px 0}
-.hero-brand img{width:min(100%,320px);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 9px 18px #27874018)}
-main{max-width:530px;margin:0 auto 16px;padding:0 16px 24px}
-.links{display:flex;flex-wrap:wrap;gap:9px;padding:0 0 8px}
-.links a{font-size:12px;font-weight:750;letter-spacing:.15px;color:#43674d;text-decoration:none;background:#fff;border:1px solid #e2ece0;border-radius:100px;padding:10px 14px;box-shadow:0 4px 10px #173d1508}
-.links a:hover{border-color:#9ed6ab;color:#056f38}
-.card{border:1px solid #e7eee4;background:#fff;border-radius:24px;padding:28px 24px;margin:12px 0;box-shadow:0 15px 40px #1b49200f;animation:rise .3s ease both}
-.card.hidden{display:none}
-h1,h2{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:860;letter-spacing:-.9px;line-height:1.13;color:#12321f;font-size:clamp(25px,6vw,33px)}
-h1{margin:12px 0}p{color:#627064;font-size:14px;line-height:1.6}
-.check{font-size:57px;color:#159f53;line-height:1.1}
-.badge{display:table;margin:0 auto 16px;background:#eaf9ef;color:#167744;border:1px solid #ceeeda;padding:8px 12px;border-radius:100px;font-size:10px;letter-spacing:1px}
-.coupon,.coupon.alt,.coupon.third{position:relative;background:linear-gradient(135deg,#fce691 0%,#f9ce4a 54%,#f0b92e 100%);color:#1e321e;border:1px solid #f4cb54;border-radius:21px;box-shadow:0 13px 30px #7d6a1525;min-height:290px;padding:15px 22px 20px;overflow:hidden;margin:16px 0 20px}
-.coupon.alt{background:linear-gradient(135deg,#1c493b,#112b29 92%);color:#fff;border-color:#447663}
-.coupon.third{background:linear-gradient(135deg,#faf0cf,#f2d178 65%,#e8ba47);color:#193226;border-color:#e9c574}
-.coupon:before,.coupon:after{content:"";position:absolute;top:59px;width:28px;height:28px;background:#fff;border-radius:50%;z-index:1;border:1px solid #f2e7c0}
-.coupon:before{left:-15px}.coupon:after{right:-15px}
-.ticket-ribbon{display:flex;justify-content:space-between;align-items:center;align-self:stretch;border-bottom:1px dashed #ffffffad;padding-bottom:14px;letter-spacing:1.4px;font-size:10px;font-weight:900}
-.ticket-ribbon span:last-child{letter-spacing:6px;opacity:.68}
-.coupon strong{font-size:21px;margin-top:5px;letter-spacing:.1px}
-.brand-logo{width:125px;height:80px;object-fit:contain;border:0;border-radius:12px;background:#fff;padding:13px;box-shadow:0 6px 15px #00000017;margin:14px auto 6px}
-.brand-fallback{font-size:21px;padding:16px;margin:14px auto 6px;max-width:90%;overflow-wrap:anywhere}
-.coupon .code{font-size:clamp(22px,6.8vw,33px);font-weight:900;letter-spacing:3px;padding:10px 15px;margin-top:13px;border:1px dashed #99802a;border-radius:11px;background:#ffffffec;color:#173525;box-shadow:0 3px 7px #0000000c;font-variant-numeric:tabular-nums}
-.coupon small{color:inherit;font-size:12px;margin-top:11px;font-weight:700;opacity:.8}
-.ticket-caption{align-self:stretch;font-size:9px;font-weight:900;letter-spacing:.8px;opacity:.65;border-top:1px dashed #ffffff9c;padding-top:12px;margin-top:17px;text-align:center}
-#couponScreen>label{color:#344a37;font-size:12px;letter-spacing:1px;margin:16px 0 6px}
-.code-entry{display:flex;gap:9px;align-items:stretch}
-#couponInput{flex:1;min-width:0;margin:0;border:1.5px solid #cfded0;border-radius:13px;padding:14px 15px;background:#fbfefb;color:#173725;font-size:20px;line-height:1.3;letter-spacing:2px;font-variant-numeric:tabular-nums;outline-offset:3px}
-#couponInput:focus{outline:2px solid #38a56d;border-color:#0b8646}
-.copy-btn{width:auto;min-width:76px;flex-shrink:0;min-height:52px;margin:0;padding:0 14px;border:1px solid #cfe7d5;background:#ecf9f0;color:#11653a;box-shadow:none;border-radius:13px;font-size:13px}
-.input-help{text-align:left;color:#768579;font-size:11px;margin:7px 0 0}
-button,.btn{font-family:inherit;font-weight:800;letter-spacing:.1px;min-height:54px;border-radius:14px;box-shadow:none;touch-action:manipulation}
-button.green,.btn.green{background:linear-gradient(135deg,#1cb663,#087940);color:#fff;box-shadow:0 6px 15px #057c4030}
-#validate{margin-top:18px;font-size:15px}
-#validate span{margin-left:6px;font-size:20px}
-#message{min-height:18px;margin:9px 0}
-.demo-disclosure{font-size:11px;color:#607262;background:#f1f8f1;border:1px solid #e1efe2;border-radius:10px;margin:14px 0 0;padding:9px 10px}
-#acceptAtStart{width:20px;height:20px;margin:0 8px 0 0;vertical-align:middle;accent-color:#11874a;flex:none}
-#welcome label{display:flex!important;align-items:center;justify-content:center;flex-wrap:wrap;gap:3px;font-size:12px;font-weight:550;line-height:1.5;color:#395a42}
-#welcome .small{font-size:11px;margin-bottom:0}
-#success .reward,#finish .reward{font-family:inherit;color:#078348;font-size:clamp(32px,8vw,48px)}
-#finish{border-top:6px solid #f2bd40;background:#fff}
-#finish:before{display:none}
-#finish>.check{display:block}
-#finish .btn.green{background:linear-gradient(135deg,#169753,#096b3b);color:white;border:0;box-shadow:0 7px 18px #0e85432a;padding:18px 12px;margin:22px 0 12px;font-size:16px}
-#finish .small{background:none;padding:4px 0;color:#6f796f}
-.milestones span{background:#ecf9ef;border-color:#d1efda;color:#127646}
-footer{max-width:530px;padding-bottom:35px}
-:focus-visible{outline:3px solid #2c9e63;outline-offset:3px}
-@media(max-width:480px){header{padding:10px 13px;gap:8px}.logo small{font-size:8px}.balance{font-size:8px;padding:7px 9px}.hero-brand{padding-top:0}.hero-brand img{width:min(100%,240px)}main{padding:0 12px 22px}.card{padding:24px 18px;border-radius:20px}.links{gap:7px;justify-content:center}.links a{padding:9px 10px;font-size:11px}.coupon,.coupon.alt,.coupon.third{padding:14px 15px 18px;min-height:265px}.ticket-ribbon{font-size:9px}.coupon .code{letter-spacing:2px}.brand-logo{width:110px;height:70px}#couponInput{font-size:18px}.copy-btn{min-width:68px;padding:0 9px}}
-@media(max-width:355px){.balance{font-size:7px;padding:7px}.balance strong{font-size:12px}header>.logo{font-size:18px}.coupon .code{font-size:21px;padding:8px}}
-@media(prefers-reduced-motion:reduce){.card{animation:none}*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
-</style><style id="logo-palette-v32">
-/* Paleta extraída do logo: verde vivo #10ed45, verde escuro #005c27, dourado #f9b400, amarelo #fff66b. */
-:root{--green:#079943;--yellow:#f9c51b;--logo-neon:#10ed45;--logo-dark:#005c27;--logo-gold:#f9b400;--logo-light:#fff66b;--ink:#073a20}
-body{background:radial-gradient(ellipse 90% 410px at 50% 0,#edffec 0%,#f9fff4 52%,#fffcf0 85%,#fafcf8 100%);color:#073a20}
-header{background:linear-gradient(110deg,#005c27 0%,#006d30 63%,#078d3d 100%);border-bottom:4px solid #f9b400;box-shadow:0 8px 22px #005c2718}
-header>.logo{color:#fff}.logo span{color:#fff66b}.logo small{color:#dcffe5}
-.balance{background:#ffffff;color:#005c27;border:2px solid #f9b400;box-shadow:0 3px 0 #f9b40040}.balance strong{color:#005c27}
-.hero-brand{background:transparent}
-.links a{color:#005c27;border-color:#b4e1bb;background:linear-gradient(180deg,#fff,#f4fff5)}
-.links a:hover{color:#005c27;border-color:#0ca646}
-.card{border:1px solid #d4e9d9;box-shadow:0 14px 36px #005c2712}
-h1,h2{color:#004b24}.check{color:#00a949}
-.badge{background:#e5ffe8;color:#006d32;border-color:#93e9a2}
-.coupon,.coupon.third{background:linear-gradient(145deg,#fff66b 0%,#ffdb32 42%,#f9b400 100%);border:2px solid #e9a900;color:#064923;box-shadow:0 14px 28px #b58e1240}
-.coupon.alt{background:linear-gradient(145deg,#10b84b 0%,#04883b 48%,#005c27 100%);border:2px solid #059a41;color:white;box-shadow:0 14px 28px #005c2736}
-.coupon:before,.coupon:after{background:#fff;border-color:#d4e9d9}
-.coupon .code{background:#ffffffed;color:#005c27;border:2px dashed #cca300}
-.ticket-ribbon{border-bottom-color:#fff8}
-#couponInput{border-color:#9bd8a8;background:#fafffa;color:#005c27}
-#couponInput:focus{outline-color:#00883d;border-color:#00883d}
-.copy-btn{background:#e5ffe9;color:#005c27;border:1px solid #88d99e}
-button.green,.btn.green,#finish .btn.green{background:linear-gradient(120deg,#0bb64f 0%,#00893b 56%,#005c27 100%);color:#fff;box-shadow:0 5px 0 #004821,0 8px 18px #005c2728}
-button:not(.green):not(.copy-btn):not(.muted){background:linear-gradient(135deg,#fff66b,#f9b400);color:#153c1a;box-shadow:0 4px 0 #db9900}
-button.muted{background:#eaf7ec;color:#005c27;border:1px solid #c0e2c7}
-#finish{border-top:7px solid #f9b400;background:linear-gradient(160deg,#fff 55%,#f1ffed)}
-#finish .reward,#success .reward{color:#006f34}
-.milestones span{background:#f0ffeb;border-color:#9de3a9;color:#005c27}
-.demo-disclosure{background:#ecf8ed;border-color:#cde8d2;color:#315b3b}
-a{color:#006d34}footer details{background:#fafff8;border-color:#cee6d3}
-::selection{background:#fff66b;color:#005c27}
-@media(max-width:480px){header{padding:12px 13px}.balance{border-width:2px}}
-</style><style id="experience-v35">
-.round-counter{text-align:center;font-size:12px;font-weight:800;color:#006a34;margin:2px 0 8px;letter-spacing:.5px}
-.achievement{display:inline-block;margin:6px auto 2px!important;padding:9px 14px;border-radius:18px;background:#efffed;border:1px solid #a2e7b4;color:#066331;font-weight:750}
-#success{text-align:center}
-.toast{position:fixed;z-index:1002;bottom:22px;left:50%;transform:translateX(-50%);max-width:min(92vw,440px);width:max-content;border-radius:18px;padding:14px 22px;background:#005c27;color:#fff;box-shadow:0 12px 40px #005c273d;font-weight:800;text-align:center}
-.toast[hidden]{display:none}
-.coupon{transform-style:preserve-3d;transition:transform .25s ease,box-shadow .25s ease;will-change:transform}
-.coupon:active{transform:perspective(800px) rotateX(2deg) scale(.99)}
-.coupon .code{transform:translateZ(8px)}
-#couponInput[aria-invalid="true"]{border-color:#c83138;background:#fff6f6}
-#couponScreen #message:not(:empty){color:#ad2b34;font-weight:700}
-#couponScreen .code-entry input{font-size:clamp(18px,4.6vw,22px)}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #f9b400;outline-offset:3px}
-#couponScreen{content-visibility:auto;contain-intrinsic-size:660px}
-@media(hover:hover) and (pointer:fine){.coupon:hover{transform:perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-2px);box-shadow:0 19px 34px #005c2734}}
-@media(max-width:460px){#couponScreen .code-entry{gap:7px}#couponScreen .copy-btn{min-width:70px}#couponScreen .coupon{min-height:250px}#couponScreen #validate{min-height:58px}}
-@media(prefers-reduced-motion:reduce){.coupon{transition:none;transform:none!important}}
-</style><style id="pixel-consent-v36">
-#analyticsConsent{position:fixed;left:14px;right:14px;bottom:14px;z-index:1500;margin:auto;max-width:540px;border:2px solid #f9b400;border-radius:18px;background:#fffef5;box-shadow:0 10px 45px #003c2340;padding:16px 18px;font-family:Arial,Helvetica,sans-serif;color:#173c26}
-#analyticsConsent[hidden],#privacyPreference[hidden]{display:none!important}
-#analyticsConsent p{font-size:13px;line-height:1.5;color:#244b35;text-align:left;margin:6px 0 12px}
-#analyticsConsent strong{font-size:15px}
-#analyticsConsent .consent-actions{display:flex;gap:10px}
-#analyticsConsent button{flex:1;cursor:pointer;border:1px solid #007a3c;border-radius:12px;min-height:44px;padding:10px 12px;font-size:13px;font-weight:800}
-#analyticsYes{background:#007a3c;color:white}#analyticsNo{background:white;color:#005c27}
-#privacyPreference{text-align:center;padding:8px 0 0}
-#manageAnalytics{background:none;border:0;color:#005c27;text-decoration:underline;cursor:pointer;font-size:12px;min-height:38px}
-</style></head><body><aside id="analyticsConsent" aria-label="Preferencias de estadísticas" hidden><strong>Privacidad y estadísticas</strong><p>¿Permites usar Meta Pixel para medir visitas e interacciones y mejorar nuestros anuncios? Es opcional. Si no aceptas, puedes usar los cupones igualmente. Puedes cambiar tu elección abajo.</p><div class="consent-actions"><button id="analyticsNo" type="button">Rechazar</button><button id="analyticsYes" type="button">Aceptar</button></div></aside><div class="money-rain" id="moneyRain" aria-hidden="true"></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-<header><div class="logo">cupón<span> de la vez</span><small>EXPERIENCIA DIGITAL</small></div><div class="balance">SALDO DEMOSTRATIVO<strong id="balance">$0.00 MXN</strong></div></header>
-<div class="hero-brand"><img src="logo-cupon.svg?v=25" width="680" height="250" alt="Cupón de la Vez" fetchpriority="high" decoding="async"></div><main><nav class="links" aria-label="Navegación"><a href="cuenta.html#login">Mi cuenta <span aria-hidden="true">↗</span></a><a href="admin-campanas.html">Campañas demo <span aria-hidden="true">↗</span></a></nav>
-<section class="card" id="welcome"><div class="check">✓</div><h1>¡Tus cupones te esperan!</h1><label style="display:block;margin:14px 0"><input type="checkbox" id="acceptAtStart"> He leído y acepto los <a href="#terminos" id="termsLink">Términos y Condiciones</a>.</label><button class="green" id="start" disabled>Comenzar</button><p class="small" id="localHistory">Tu actividad se guarda en este dispositivo.</p></section>
-<section class="card hidden" id="couponScreen"><div class="badge">✦ CUPÓN INTERACTIVO · DEMO</div><p class="round-counter" id="roundCounter" aria-live="polite">Cupón 1 de 3</p><div class="coupon" id="couponCard"><div class="ticket-ribbon"><span>EDICIÓN DIGITAL</span><span aria-hidden="true">✦ ✦ ✦</span></div><img class="brand-logo" id="brandLogo" decoding="async" alt="Logotipo de marca usado como referencia visual no oficial" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true;document.getElementById('brandFallback').hidden=false"><span id="brandFallback" class="brand-fallback" hidden></span><strong id="couponTitle">Cupón de ejemplo</strong><div class="code" id="shownCode">81286876</div><small>8 dígitos · código ilustrativo</small></div><label for="couponInput">DIGITA EL CÓDIGO DEL CUPÓN</label><div class="code-entry"><input id="couponInput" type="text" inputmode="numeric" pattern="[0-9]{8}" maxlength="8" autocomplete="one-time-code" enterkeyhint="done" aria-describedby="codeHelp" placeholder="0000 0000"><button type="button" id="copyCode" class="copy-btn" aria-label="Copiar código de demostración">Copiar</button></div><p class="input-help" id="codeHelp">Usa los 8 números mostrados en la tarjeta.</p><button type="button" id="validate" class="green">VALIDAR CUPÓN <span aria-hidden="true">→</span></button><p id="message" role="status" aria-live="polite" class="small"></p></section>
-<section class="card hidden" id="success"><div class="check">✓</div><h2>¡Cupón validado! ✨</h2><p>Acumulaste:</p><div class="reward" id="reward">$0.00 MXN</div><p id="achievement" class="achievement">🏅 ¡Primer cupón completado!</p><p>Saldo virtual total: <strong id="total">$0.00 MXN</strong></p><button class="green" id="next">Siguiente cupón</button></section>
-<section class="card hidden" id="finish"><div class="check">✓</div><h2>¡Felicidades, completaste tus 3 cupones!</h2><p>Tu saldo virtual ha aumentado.</p><div class="reward" id="finalTotal">$0.00 MXN</div><p class="demo-disclosure">La oferta es una compra aparte.</p><div class="milestones" id="milestones" aria-label="Logros virtuales"></div><button class="muted" id="openInfo" type="button">ⓘ Términos y condiciones</button><a class="btn green" id="checkout" href="https://xpag.global/pay/UIZraLAo" target="_blank" rel="noopener noreferrer">💰 CONTINUAR A LA OFERTA →</a><p class="small">Si el botón no abre la oferta, mantén pulsado el botón y selecciona abrir enlace.</p><button class="muted" id="again">Volver a empezar</button></section>
-<dialog id="infoPopup" aria-labelledby="infoTitle" style="border:0;border-radius:14px;max-width:420px;width:92%;padding:22px"><h2 id="infoTitle">Términos y condiciones</h2><p class="small" style="text-align:left">Esta plataforma es una experiencia interactiva de demostración. Los códigos son ilustrativos: no son cupones reales ni conceden descuentos. Las marcas se muestran solo como referencia visual; no existe patrocinio, asociación ni autorización de sus titulares.</p><p class="small" style="text-align:left">Los importes expresados en MXN son saldo virtual demostrativo, sin valor monetario. No representan dinero, crédito, premios ni ganancias reales, y no se pueden retirar, transferir ni utilizar como pago.</p><p class="small" style="text-align:left">La oferta externa es opcional e independiente de los cupones y del saldo virtual. Cualquier compra implica un pago real y no permite convertir el saldo demostrativo en dinero. Consulta las condiciones de la oferta antes de comprar. Esta experiencia no solicita información bancaria.</p><button class="green" id="closeInfo" type="button">Entendido</button></dialog></main><footer><div id="privacyPreference" hidden><button id="manageAnalytics" type="button">Configurar privacidad y estadísticas</button></div><details><summary>Términos y condiciones</summary><p>Los códigos son ilustrativos y no ofrecen descuentos reales. El saldo mostrado en MXN es exclusivamente virtual, sin valor monetario ni retiros. Las marcas son referencias visuales sin afiliación. La oferta de pago es opcional e independiente. Consulta los <a href="#terminos" id="footerTerms">términos completos</a>.</p></details></footer>
-<script>'use strict';(()=>{const data=[{code:'81286876',title:'Nike',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/nike.svg',value:80,cls:''},{code:'81460305',title:'Apple',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/apple.svg',value:150,cls:'alt'},{code:'81633734',title:'Burger King',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/burgerking.svg',value:60,cls:'third'},{code:'81807163',title:'Adidas',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/adidas.svg',value:120,cls:''},{code:'81980592',title:'McDonald\'s',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/mcdonalds.svg',value:90,cls:'third'},{code:'82154021',title:'Samsung',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/samsung.svg',value:130,cls:'alt'},{code:'82327450',title:'Starbucks',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/starbucks.svg',value:70,cls:''},{code:'82500879',title:'Puma',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/puma.svg',value:110,cls:'third'},{code:'82674308',title:'Pepsi',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/pepsi.svg',value:100,cls:'alt'},{code:'82847737',title:'Spotify',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/spotify.svg',value:140,cls:''},{code:'83021166',title:'Netflix',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/netflix.svg',value:95,cls:'alt'},{code:'83194595',title:'LEGO',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/lego.svg',value:125,cls:'third'},{code:'83368024',title:'YouTube',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/youtube.svg',value:105,cls:'third'},{code:'83541453',title:'Amazon',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/amazon.svg',value:85,cls:''},{code:'83714882',title:'PlayStation',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/playstation.svg',value:135,cls:'alt'},{code:'83888311',title:'Coca-Cola',logo:'https://cdn.jsdelivr.net/npm/simple-icons@v15/icons/cocacola.svg',value:95,cls:'third'}],key='cuponmx-virtual-session-v2',rotationKey='cuponmx-brand-rotation-v2',money=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(n),sections=['welcome','couponScreen','success','finish'];let index=0,balance=0,completed=[],round=[];const read=(k,fallback)=>{try{return JSON.parse(localStorage.getItem(k)||'null')??fallback}catch(_){return fallback}};const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};function selectRound(){let queue=read(rotationKey,[]);if(!Array.isArray(queue)||queue.some(n=>!Number.isInteger(n)||n<0||n>=data.length))queue=[];if(queue.length<3){const remaining=queue;queue=remaining.concat(shuffle(data.map((_,i)=>i).filter(i=>!remaining.includes(i))))}const selected=queue.splice(0,3);try{localStorage.setItem(rotationKey,JSON.stringify(queue))}catch(_){}return selected}let saved=read(key,null);if(saved&&Array.isArray(saved.round)&&saved.round.length===3&&saved.round.every(n=>Number.isInteger(n)&&n>=0&&n<data.length)&&Array.isArray(saved.completed)){round=saved.round;completed=[...new Set(saved.completed.filter(n=>round.includes(n)))];balance=completed.reduce((sum,i)=>sum+data[i].value,0)}else{round=selectRound()}function save(){try{localStorage.setItem(key,JSON.stringify({round,completed}))}catch(_){}}save();let audioContext;function coinSound(){if(localStorage.getItem('cupon-sound')==='off')return;try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioContext=audioContext||new Ctx();if(audioContext.state==='suspended')audioContext.resume();const now=audioContext.currentTime;for(let i=0;i<4;i++){const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type='sine';osc.frequency.setValueAtTime(650+i*125,now+i*.085);osc.frequency.exponentialRampToValueAtTime(1000+i*145,now+i*.085+.11);gain.gain.setValueAtTime(.0001,now+i*.085);gain.gain.exponentialRampToValueAtTime(.09,now+i*.085+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+i*.085+.2);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now+i*.085);osc.stop(now+i*.085+.21)}}catch(_){}}function moneyAnimation(){if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const box=document.getElementById('moneyRain');if(!box)return;box.replaceChildren();for(let i=0;i<22;i++){const el=document.createElement('span');el.className='coin';el.textContent=i%4===0?'✨':'🪙';el.style.setProperty('--x',Math.round(Math.random()*100)+'%');el.style.setProperty('--size',(21+Math.round(Math.random()*15))+'px');el.style.setProperty('--duration',(1.5+Math.random()*1.1).toFixed(2)+'s');el.style.setProperty('--delay',(Math.random()*.65).toFixed(2)+'s');el.style.setProperty('--drift',(Math.random()*130-65).toFixed(0)+'px');el.style.setProperty('--spin',(Math.random()*900-450).toFixed(0)+'deg');box.appendChild(el)}setTimeout(()=>box.replaceChildren(),3400)}function celebrate(){moneyAnimation();coinSound()}let displayedBalance=balance,balanceFrame=0;
-function animateBalance(value){
- const el=document.getElementById('balance');cancelAnimationFrame(balanceFrame);
- const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(reduce||displayedBalance===value){displayedBalance=value;el.textContent=money(value);return}
- const from=displayedBalance,start=performance.now(),duration=640;
- const draw=t=>{const pct=Math.min((t-start)/duration,1);displayedBalance=from+(value-from)*(1-Math.pow(1-pct,3));el.textContent=money(displayedBalance);if(pct<1)balanceFrame=requestAnimationFrame(draw);else{displayedBalance=value;el.textContent=money(value)}};
- balanceFrame=requestAnimationFrame(draw);
-}
-let toastTimeout;function showToast(message){const el=document.getElementById('toast');el.textContent=message;el.hidden=false;clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.hidden=true,2600)}
-function saveHistory(brand,value){
- try{const k='cuponmx-local-history-v1',v=JSON.parse(localStorage.getItem(k)||'[]'),items=Array.isArray(v)?v:[];items.unshift({brand,amount:value,date:new Date().toISOString(),demo:true});localStorage.setItem(k,JSON.stringify(items.slice(0,60)))}catch(_){}
-}
-function show(id){for(const s of sections)document.getElementById(s).classList.toggle('hidden',s!==id);window.scrollTo({top:0,behavior:'smooth'})}function update(){animateBalance(balance);document.getElementById('localHistory').textContent='Cupones completados en esta ronda: '+completed.length+' · actividad guardada en este dispositivo.'}function render(){update();document.getElementById('roundCounter').textContent='Cupón '+Math.min(index+1,round.length)+' de '+round.length;if(index>=round.length){document.getElementById('finalTotal').textContent=money(balance);document.getElementById('milestones').innerHTML='<span>🥉 Primer cupón</span><span>🥈 Dos cupones</span><span>🏆 Ronda completa</span>';show('finish');return}const c=data[round[index]];document.getElementById('couponTitle').textContent=c.title;const logo=document.getElementById('brandLogo');logo.hidden=false;const fallback=document.getElementById('brandFallback');fallback.hidden=true;fallback.textContent=c.title;logo.src=c.logo;document.getElementById('shownCode').textContent=c.code;document.getElementById('couponCard').className='coupon '+c.cls;document.getElementById('couponInput').value='';document.getElementById('message').textContent='';document.getElementById('couponInput').removeAttribute('aria-invalid');show('couponScreen')}document.getElementById('copyCode').onclick=async()=>{const code=document.getElementById('shownCode').textContent;try{await navigator.clipboard.writeText(code);document.getElementById('message').textContent='Código copiado. Pégalo en el campo.'}catch(_){document.getElementById('couponInput').value=code;document.getElementById('message').textContent='Código colocado en el campo.'}document.getElementById('couponInput').focus()};document.getElementById('couponInput').addEventListener('input',e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,8);document.getElementById('message').textContent=''});document.getElementById('couponInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('validate').click()}});document.getElementById('acceptAtStart').onchange=e=>document.getElementById('start').disabled=!e.target.checked;document.getElementById('termsLink').onclick=e=>{e.preventDefault();document.getElementById('infoPopup').showModal()};document.getElementById('start').onclick=()=>{if(!document.getElementById('acceptAtStart').checked)return;index=0;while(index<round.length&&completed.includes(round[index]))index++;window.cuponTrack?.('CouponStart');render()};document.getElementById('validate').onclick=()=>{const current=round[index],val=document.getElementById('couponInput').value.trim();if(val!==data[current].code){document.getElementById('message').textContent=val.length!==8?'El código debe tener 8 dígitos.':'El código no coincide. Verifica los números.';document.getElementById('couponInput').setAttribute('aria-invalid','true');return}document.getElementById('couponInput').removeAttribute('aria-invalid');const value=data[current].value;if(!completed.includes(current)){completed.push(current);balance+=value;save();window.cuponTrack?.('CouponValidated',{coupon_position:index+1})}update();document.getElementById('reward').textContent=money(value);document.getElementById('achievement').textContent=['🥉 ¡Primer cupón completado!','🥈 ¡Dos cupones completados!','🏆 ¡Ronda completada!'][index]||'✨ ¡Muy bien!';saveHistory(data[current].title,value);showToast('✨ ¡Cupón correcto! +'+money(value)+' virtuales');document.getElementById('total').textContent=money(balance);celebrate();if(index===round.length-1){window.cuponTrack?.('CouponRoundCompleted');index=round.length;document.getElementById('finalTotal').textContent=money(balance);document.getElementById('milestones').innerHTML='<span>🥉 Primer cupón</span><span>🥈 Dos cupones</span><span>🏆 Ronda completa</span>';show('finish');setTimeout(()=>document.getElementById('checkout').scrollIntoView({block:'center',behavior:'smooth'}),350)}else{show('success')}};document.getElementById('next').onclick=()=>{celebrate();index++;while(index<round.length&&completed.includes(round[index]))index++;render()};document.getElementById('checkout').addEventListener('click',()=>window.cuponTrack?.('OfferClicked'));document.getElementById('openInfo').onclick=()=>document.getElementById('infoPopup').showModal();document.getElementById('closeInfo').onclick=()=>document.getElementById('infoPopup').close();document.getElementById('footerTerms').onclick=e=>{e.preventDefault();document.getElementById('infoPopup').showModal()};document.getElementById('again').onclick=()=>{round=selectRound();index=0;completed=[];balance=0;save();update();show('welcome')};if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=25',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{}))}update()})();</script><script src="./pixel-consent.js?v=36" defer></script></body></html>
-<!-- Atualização para publicação do site -->
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132a58">
+  <meta name="description" content="Simule parcelas de empréstimo de forma simples. Cálculo ilustrativo e transparente, sem coleta de dados pessoais.">
+  <title>Seu Crédito | Simulação de empréstimo</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Seu Crédito, página inicial">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="7" y="7" width="34" height="34" rx="12" fill="currentColor"/><path d="M16 25.5l6 6L33 17" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="brand-text">seu<span>crédito</span><small>SIMULAÇÃO DIGITAL</small></span>
+      </a>
+      <div class="header-right"><span class="status"><span class="status-dot"></span> Atendimento digital</span><span class="secure">◈ Ambiente informativo</span></div>
+    </header>
+
+    <main class="main-wrap">
+      <section class="content-card" aria-label="Simulação de crédito">
+        <aside class="side-panel">
+          <div class="side-glow" aria-hidden="true"></div>
+          <span class="side-kicker">SEU PRÓXIMO PASSO</span>
+          <h2>Mais clareza para decidir.</h2>
+          <p>Entenda como o valor e o prazo influenciam uma parcela estimada, antes de conversar sobre crédito.</p>
+          <div class="visual-card" aria-hidden="true">
+            <div class="visual-card-top"><span>EXEMPLO DE SIMULAÇÃO</span><span class="visual-dot">●</span></div>
+            <div class="visual-big">R$ 5.000<span>,00</span></div>
+            <div class="visual-line"></div>
+            <div class="visual-flex"><span>Parcelas simuladas</span><strong>12 meses</strong></div>
+            <div class="visual-flex"><span>Condições</span><strong>Ilustrativas</strong></div>
+          </div>
+          <div class="side-foot"><span class="check-bubble">✓</span><span>Sem promessa de aprovação<br>Sem depósito antecipado</span></div>
+        </aside>
+
+        <div class="form-panel">
+          <div class="progress-wrap">
+            <div class="progress-top"><span id="progressLabel">Bem-vindo</span><span id="progressFraction">Início</span></div>
+            <div class="progress-track" role="progressbar" aria-label="Etapas concluídas" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div>
+          </div>
+
+          <div id="alert" class="alert" role="alert" hidden></div>
+
+          <section class="step is-active" data-step="0" aria-labelledby="introTitle">
+            <div class="hello-art" aria-hidden="true"><span class="hello-wave">👋</span><span class="hello-spark">✦</span></div>
+            <div class="eyebrow">BOAS-VINDAS</div>
+            <h1 id="introTitle">Olá! Vamos começar?</h1>
+            <p class="lead">Conecte-se a uma experiência simples para entender opções de empréstimo. São poucas perguntas e você poderá conferir uma <strong>estimativa de parcelas.</strong></p>
+            <div class="intro-note"><span class="note-icon">✓</span><span>Nesta versão, a simulação é demonstrativa e nenhum dado pessoal é enviado a servidores.</span></div>
+            <button type="button" class="btn btn-primary btn-main" id="startBtn">Continuar <span aria-hidden="true">→</span></button>
+            <p class="micro">Ao continuar, você pode consultar nossos <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> e <button type="button" class="link-button" data-legal="privacidade">Privacidade</button>.</p>
+          </section>
+
+          <section class="step" data-step="1" aria-labelledby="purposeTitle" hidden>
+            <div class="eyebrow">PASSO 01 · OBJETIVO</div>
+            <h1 id="purposeTitle">Para que você precisa do crédito?</h1>
+            <p class="lead">Selecione a opção que mais se aproxima da sua necessidade.</p>
+            <div class="option-grid purpose-grid" id="purposeOptions" role="group" aria-label="Finalidade do empréstimo">
+              <button type="button" class="option" data-purpose="Organizar minhas contas"><span class="option-icon">▤</span><span>Organizar minhas contas</span><span class="option-arrow">↗</span></button>
+              <button type="button" class="option" data-purpose="Reformar a casa"><span class="option-icon">⌂</span><span>Reformar a casa</span><span class="option-arrow">↗</span></button>
+              <button type="button" class="option" data-purpose="Investir no negócio"><span class="option-icon">▥</span><span>Investir no negócio</span><span class="option-arrow">↗</span></button>
+              <button type="button" class="option" data-purpose="Imprevistos"><span class="option-icon">✳</span><span>Imprevistos</span><span class="option-arrow">↗</span></button>
+              <button type="button" class="option option-wide" data-purpose="Outros motivos"><span class="option-icon">✦</span><span>Outros motivos</span><span class="option-arrow">↗</span></button>
+            </div>
+            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="purposeNext">Continuar →</button></div>
+          </section>
+
+          <section class="step" data-step="2" aria-labelledby="valuesTitle" hidden>
+            <div class="eyebrow">PASSO 02 · VALOR E PRAZO</div>
+            <h1 id="valuesTitle">Quanto você gostaria de simular?</h1>
+            <p class="lead">Ajuste o valor e a quantidade de parcelas. Você pode alterar quando quiser.</p>
+            <div class="field-group">
+              <label for="amountInput">Valor desejado</label>
+              <div class="money-input"><span>R$</span><input type="number" id="amountInput" inputmode="decimal" min="500" max="50000" step="100" value="5000" aria-describedby="amountHint"></div>
+              <input type="range" id="amountRange" min="500" max="50000" step="100" value="5000" aria-label="Valor desejado">
+              <div class="range-ends"><span>R$ 500</span><span>R$ 50.000</span></div>
+              <small id="amountHint">Valores entre R$ 500 e R$ 50.000.</small>
+            </div>
+            <div class="field-group"><label>Em quantas parcelas?</label>
+              <div class="month-grid" id="monthOptions" role="group" aria-label="Número de parcelas">
+                <button type="button" data-months="6">6x</button>
+                <button type="button" data-months="12" class="selected" aria-pressed="true">12x</button>
+                <button type="button" data-months="18">18x</button>
+                <button type="button" data-months="24">24x</button>
+                <button type="button" data-months="36">36x</button>
+                <button type="button" data-months="48">48x</button>
+              </div>
+            </div>
+            <div class="small-calculation"><span>Parcela ilustrativa de</span><strong id="miniPayment">—</strong><small>Exemplo a 2,49% ao mês, sem IOF ou tarifas.</small></div>
+            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="valuesNext">Continuar →</button></div>
+          </section>
+
+          <section class="step" data-step="3" aria-labelledby="profileTitle" hidden>
+            <div class="eyebrow">PASSO 03 · SEU PERFIL</div>
+            <h1 id="profileTitle">Algumas informações gerais</h1>
+            <p class="lead">Apenas para contextualizar a simulação. Nenhuma informação é transmitida ou armazenada.</p>
+            <div class="field-group"><label for="income">Qual sua faixa de renda mensal?</label>
+              <select id="income">
+                <option value="">Selecione uma faixa</option>
+                <option value="Até R$ 1.500">Até R$ 1.500</option>
+                <option value="R$ 1.501 a R$ 3.000">R$ 1.501 a R$ 3.000</option>
+                <option value="R$ 3.001 a R$ 5.000">R$ 3.001 a R$ 5.000</option>
+                <option value="Mais de R$ 5.000">Mais de R$ 5.000</option>
+                <option value="Prefiro não informar">Prefiro não informar</option>
+              </select>
+            </div>
+            <div class="field-group"><label for="occupation">Sua ocupação atual</label>
+              <select id="occupation">
+                <option value="">Selecione sua ocupação</option>
+                <option value="Trabalho com carteira assinada">Trabalho com carteira assinada</option>
+                <option value="Autônomo(a) / MEI">Autônomo(a) / MEI</option>
+                <option value="Aposentado(a) / pensionista">Aposentado(a) / pensionista</option>
+                <option value="Servidor(a) público(a)">Servidor(a) público(a)</option>
+                <option value="Outra situação">Outra situação</option>
+                <option value="Prefiro não informar">Prefiro não informar</option>
+              </select>
+            </div>
+            <label class="checkbox-line"><input type="checkbox" id="adultConfirm"><span>Confirmo que tenho 18 anos ou mais.</span></label>
+            <label class="checkbox-line"><input type="checkbox" id="termsConfirm"><span>Li e concordo com os <button type="button" class="link-button" data-legal="termos">Termos de Uso</button> desta simulação.</span></label>
+            <div class="actions"><button type="button" class="btn btn-ghost" data-back>← Voltar</button><button type="button" class="btn btn-primary" id="profileNext">Ver simulação →</button></div>
+          </section>
+
+          <section class="step" data-step="4" aria-labelledby="resultTitle" hidden>
+            <div class="success-emblem" aria-hidden="true">✓</div>
+            <div class="eyebrow">SIMULAÇÃO CONCLUÍDA</div>
+            <h1 id="resultTitle">Confira sua estimativa</h1>
+            <p class="lead">Esses números são apenas ilustrativos. Não houve consulta de crédito nem aprovação.</p>
+            <div class="result-card"><span>Parcela mensal estimada</span><strong id="resultPayment">—</strong><div class="result-description" id="resultMonths">—</div></div>
+            <div class="result-list">
+              <div><span>Valor simulado</span><strong id="resultAmount">—</strong></div>
+              <div><span>Taxa usada no exemplo</span><strong>2,49% ao mês</strong></div>
+              <div><span>Total matemático estimado</span><strong id="resultTotal">—</strong></div>
+              <div><span>Finalidade</span><strong id="resultPurpose">—</strong></div>
+            </div>
+            <div class="warning-box"><strong>Importante:</strong> Isto não é uma oferta de crédito. Estimativa calculada sem IOF, tarifas e seguros. Taxas reais, custo efetivo total (CET), elegibilidade e condições dependem da instituição que eventualmente oferecer o crédito. Nunca pague depósito antecipado para liberar um empréstimo.</div>
+            <div class="result-buttons"><button type="button" class="btn btn-primary btn-main" id="contactBtn">Falar com atendimento ↗</button><button type="button" class="btn btn-outline" id="copyBtn">Copiar resumo</button><button type="button" class="btn btn-ghost" id="restartBtn">↻ Fazer outra simulação</button></div>
+          </section>
+        </div>
+      </section>
+      <div class="below-card"><div><span class="below-symbol">⌁</span> Seu tempo importa. Simule com calma.</div><div>Sem cadastro · Sem coleta de CPF · Sem obrigação de contratar</div></div>
+    </main>
+
+    <footer class="site-footer"><span>© <span id="year">2026</span> Seu Crédito · Site demonstrativo de simulação.</span><span><button type="button" class="footer-link" data-legal="termos">Termos de Uso</button><span class="footer-dot">·</span><button type="button" class="footer-link" data-legal="privacidade">Privacidade</button></span></footer>
+  </div>
+  <dialog id="infoDialog" class="dialog" aria-labelledby="dialogTitle"><div class="dialog-head"><h2 id="dialogTitle"></h2><button type="button" id="dialogClose" aria-label="Fechar janela">✕</button></div><div id="dialogContent" class="dialog-content"></div><div class="dialog-actions"><button type="button" class="btn btn-primary" id="dialogOk">Entendi</button></div></dialog>
+</body>
+</html>
