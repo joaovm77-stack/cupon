@@ -96,3 +96,14 @@ main{min-height:calc(100vh - 150px)}.pane{display:none}.pane.show{display:block;
 .help-panel b{font-size:13px;color:#282a3a}
 .help-panel p{font-size:12px;color:#737989;margin:4px 0 0;line-height:1.65}
 @media(max-width:510px){.quotes-center,.confirmation-center{padding-top:20px}.quote-panel,.confirmation-body{padding:18px}.quote-intro{padding:24px 18px}.scenario-card{padding:14px 10px;gap:8px}.scenario-copy>strong{font-size:18px}.scenario-rate b{font-size:13px}.scenario-copy>span{font-size:10px}.confirmation-banner{padding:27px 21px}}
+
+/* Preferências de privacidade para Google Analytics (opt-in). */
+.analytics-consent{position:fixed;z-index:9999;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:22px;align-items:center;justify-content:space-between;width:min(950px,calc(100% - 24px));padding:18px 22px;background:#fff;border:1px solid #dfe2eb;border-radius:18px;box-shadow:0 20px 55px #15133750;color:#23253a}
+.analytics-consent[hidden]{display:none!important}
+.analytics-consent-text{flex:1;min-width:0}
+.analytics-consent strong{display:block;font-size:15px;line-height:1.35}
+.analytics-consent p{margin:6px 0 0;font-size:12px;line-height:1.55;color:#646c80}
+.analytics-consent-actions{display:flex;gap:9px;flex:none}
+.analytics-consent-actions button{padding:12px 16px;min-height:44px;border-radius:10px;border:1px solid #d9dce5;background:#fff;font-size:12px;font-weight:800;color:#272b3a}
+.analytics-consent-actions #analyticsAccept{background:#ff790b;color:#fff;border-color:#ff790b}
+@media(max-width:720px){.analytics-consent{bottom:8px;align-items:stretch;flex-direction:column;gap:12px;padding:16px}.analytics-consent-actions{width:100%}.analytics-consent-actions button{flex:1}}
