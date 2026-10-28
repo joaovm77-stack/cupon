@@ -1,7 +1,7 @@
 "use strict";
 const WA="5537998375291";
 const RATE=0.0249;
-const st={step:0,amount:10000,term:24,cpf:"",name:"",birth:"",income:"",payDay:"",purpose:"",occupation:"",education:"",credit:"",chat:""};
+const st={step:0,amount:10000,term:24,cpf:"",name:"",birth:"",income:"",payDay:"",purpose:"",occupation:"",education:"",credit:"",chat:"",chatPhase:0,chatAnswers:[],termsAck:false,email:"",phone:""};
 const root=document.getElementById("app");
 const money=n=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:2}).format(n);
 const estimate=()=>{let q=Math.pow(1+RATE,st.term);return st.amount*(RATE*q)/(q-1)};
@@ -16,6 +16,48 @@ function progress(p){return '<div class="progress" aria-label="Progresso"><span 
 function nav(next,back,label){return '<div class="actions">'+(back!==null?'<button type="button" class="btn white-btn" data-go="'+back+'">Voltar</button>':"")+'<button type="button" class="btn orange-btn" data-next="'+next+'">'+(label||"Continuar")+' →</button></div>'}
 function card(body,percent,showStepper){return '<section class="center"><div class="card">'+(showStepper?stepper():"")+'<div class="card-body">'+progress(percent)+body+'</div></div></section>'}
 function stepper(){return '<div class="steps">'+["CPF","Identidade","Nascimento","Pronto"].map((x,i)=>{let cur=Math.min(Math.max(st.step-2,0),3);return '<div class="step '+(i===cur?"on":i<cur?"done":"")+'"><i>'+(i<cur?"✓":i===3?"✓":i+1)+'</i>'+x+'</div>'}).join("")+'</div>'}
+
+function chatPanel(){
+ const phase=st.chatPhase||0;
+ const msgs=[
+   ["Quero entender melhor sua necessidade. Qual a finalidade principal?"],
+   ["Você possui alguma conta bancária ativa para conversar sobre alternativas de recebimento?"],
+   ["Qual modalidade de recebimento você prefere considerar? Não informe chave PIX aqui."],
+   ["Qual tipo de instituição você utiliza? Não precisamos de número de conta ou agência."],
+   ["Quando gostaria de começar a pagar, caso exista uma proposta real?"],
+   ["Vamos revisar o valor e o prazo que você deseja simular."],
+   ["Preenchimento concluído! Esta página não consultou o Serasa, não calculou score e não aprovou empréstimo."]
+ ];
+ const opts=[
+  ["Pagar dívidas","Investir no negócio","Reformar a casa","Emergência médica","Outros motivos"],
+  ["Banco tradicional","Banco digital","Ambos","Ainda não tenho conta"],
+  ["PIX (preferência apenas)","Transferência bancária","Não tenho preferência"],
+  ["Banco tradicional","Banco digital","Outro","Prefiro não informar"],
+  ["Em 30 dias","Em 60 dias","Em 90 dias"]
+ ];
+ let content='<div class="bubble">'+msgs[Math.min(phase,6)][0]+'</div>';
+ if(phase<5) content+=opts[phase].map((option,i)=>'<button class="chat-option" type="button" data-chat-answer="'+safe(option)+'">'+["◈","⌁","▣","◇","✓"][i%5]+' &nbsp; '+safe(option)+'　›</button>').join("");
+ if(phase===5) content+='<div class="chat-simulator"><small>QUANTO VOCÊ PRECISA?</small><strong id="chatAmountLabel">'+money(st.amount)+'</strong><input type="range" id="chatAmountRange" min="1000" max="20000" step="500" value="'+st.amount+'"><div class="ends"><span>R$ 1.000</span><span>R$ 20.000</span></div><div class="chat-installments">Estimativa em '+st.term+' parcelas: <b id="chatInstallment">'+money(estimate())+'</b> por mês</div><button class="btn orange-btn full" type="button" data-chat-confirm>Confirmar valor ✓</button></div>';
+ if(phase===6) content+='<div class="note">Este resultado é apenas matemático; não representa consulta ao score, análise do perfil ou crédito aprovado.</div><button type="button" class="btn orange-btn full" data-go="13">Comparar parcelas →</button>';
+ const previous=phase>0?'<button type="button" data-chat-back class="chat-previous">← Voltar à pergunta anterior</button>':'';
+ return '<section class="center"><div class="chat"><div class="chat-head"><div class="chat-avatar">◈</div><div><b>Assistente Seu Crédito</b><small>Roteiro automático, sem atendimento humano nesta tela</small></div></div><div class="chat-feed" id="feed"><div class="bubble">Olá! Vamos completar sua simulação. Não realizamos análise ou aprovação de crédito.</div>'+st.chatAnswers.map((ans,i)=>'<div class="bubble chat-answer"><small>Você informou</small>'+safe(ans)+'</div>').join("")+content+previous+'</div><div class="chat-bottom"><p>Não informe CPF, chave PIX, senhas ou dados bancários completos na conversa.</p><button type="button" class="btn whatsapp full" id="wa">Falar pelo WhatsApp ↗</button></div></div></section>';
+}
+function termOptions(){
+ return [3,6,12,24,36,48,60,120].map(n=>{let q=Math.pow(1+RATE,n);const p=st.amount*(RATE*q)/(q-1);return '<button type="button" class="payment-option '+(n===st.term?"active":"")+'" data-term-choice="'+n+'"><span class="payment-radio">'+(n===st.term?"●":"○")+'</span><span><b>'+n+'x</b><small>Total ilustrativo '+money(p*n)+'</small></span><strong>'+money(p)+'</strong></button>'}).join("");
+}
+function extendedView(){
+ switch(st.step){
+  case 13:return card('<p class="number">COMPARAÇÃO ILUSTRATIVA</p><h1 class="centertext">Escolha um prazo</h1><p class="sub centertext">Parcelas estimadas para '+money(st.amount)+'. Juros hipotéticos de 2,49% ao mês, sem encargos adicionais.</p><div class="payment-list" id="paymentList">'+termOptions()+'</div><div class="note">Isso não é oferta, contrato nem aprovação. A instituição responsável por uma eventual proposta deve informar o CET e todas as condições.</div>'+nav(14,12,"Ver resumo"),100,false);
+  case 14:return card('<p class="number">RESUMO DA SIMULAÇÃO</p><h1 class="centertext">Confira seus valores</h1><div class="simulation-stamp">SIMULAÇÃO · SEM TRANSAÇÃO REAL</div><div class="estimate">Valor solicitado<b>'+money(st.amount)+'</b></div><div class="summary-data"><div><span>Parcelas</span><b>'+st.term+'x de '+money(estimate())+'</b></div><div><span>Total matemático</span><b>'+money(st.term*estimate())+'</b></div><div><span>Taxa hipotética</span><b>2,49% ao mês</b></div><div><span>Forma desejada</span><b>'+safe(st.chatAnswers[2]||"Não informada")+'</b></div></div><div class="note">Nenhum pagamento ou PIX foi realizado ou agendado. Não existe ID de transação e não houve consulta ao Serasa.</div>'+nav(15,13,"Ver condições"),100,false);
+  case 15:return card('<h1>Informações sobre contratação</h1><p class="sub">Antes de assinar um contrato verdadeiro, verifique a instituição financeira, o CET, os juros, o cronograma e o direito de arrependimento quando aplicável.</p><div class="choices-info"><div>♢ <b>Sem contrato neste site</b><small>Não emitimos documentos de crédito nem assinaturas eletrônicas.</small></div><div>▣ <b>Proteção de dados</b><small>Não coletamos senhas nem informações bancárias completas.</small></div><div>◷ <b>Condições reais</b><small>Uma eventual proposta deverá vir de uma instituição habilitada.</small></div></div><label class="consent-line"><input type="checkbox" id="termsAck" '+(st.termsAck?"checked":"")+'><span>Entendi que esta é uma simulação e não um contrato ou aprovação de crédito.</span></label><p class="alert" id="err"></p>'+nav(16,14,"Continuar"),100,false);
+  case 16:return card('<h1 class="centertext">Condições da simulação</h1><p class="sub centertext">Leia antes de prosseguir.</p><div class="conditions-box"><b>Parcela estimada:</b> '+money(estimate())+' em '+st.term+' meses.<p>Taxa hipotética: 2,49% ao mês. Este cálculo não inclui IOF, tarifas, seguros ou outros custos e não informa o CET de um produto real.</p></div><div class="note">Não há liberação automática nem depósito agendado. Desconfie de cobrança antecipada para liberar empréstimos.</div>'+nav(17,15,"Li e compreendi"),100,false);
+  case 17:return card('<h1 class="centertext">Dados para contato</h1><p class="sub centertext">Opcional. Estes campos são apenas uma prévia do formulário; não serão enviados nem salvos. Para realmente entrar em contato, use o botão do WhatsApp na próxima etapa.</p><label class="label" for="emailContact">E-MAIL (OPCIONAL)</label><input class="field" id="emailContact" type="email" autocomplete="off" placeholder="seu@email.com" value="'+safe(st.email)+'"><label class="label" for="phoneContact">CELULAR (OPCIONAL)</label><input class="field" id="phoneContact" type="tel" autocomplete="off" placeholder="(00) 00000-0000" value="'+safe(st.phone)+'"><p class="alert" id="err"></p>'+nav(18,16,"Continuar"),100,false);
+  case 18:return card('<h1 class="centertext">Seguro prestamista</h1><p class="sub centertext">Entenda o que é antes de decidir sobre qualquer proposta de crédito.</p><div class="conditions-box"><b>O que é?</b><p>É um seguro que pode cobrir situações previstas em apólice vinculadas a uma operação de crédito. A contratação depende das condições da seguradora e não deve ser apresentada como uma taxa antecipada para liberar dinheiro.</p></div><div class="note">Este site não vende seguros, não cobra valores e não liberou empréstimo. Não faça pagamento antecipado de seguro ou taxa para receber crédito.</div>'+nav(19,17,"Continuar sem contratar"),100,false);
+  case 19:return card('<div class="centertext"><div class="success">✓</div><h1>Simulação finalizada</h1><p class="sub">Você pode consultar o contato responsável pelo WhatsApp sobre opções reais de crédito.</p><div class="estimate">Estimativa de '+st.term+' parcelas<b>'+money(estimate())+'</b></div><p class="sub">Nenhum empréstimo foi aprovado ou liberado. Não há contrato assinado, seguro contratado, PIX enviado ou análise cadastral nesta página.</p><button class="btn whatsapp full" type="button" id="wa">Abrir meu WhatsApp ↗</button><button class="btn white-btn full" style="margin-top:12px" type="button" data-go="1">Nova simulação</button></div>',100,false);
+  default:return '<p>Etapa não encontrada.</p>';
+ }
+}
+
 function view(){
  switch(st.step){
  case 0:return '<section class="welcome"><div class="welcome-card"><div class="welcome-symbol">✓</div><span class="eyebrow">Tudo pronto!</span><h1>Bem-vindo!</h1><p>Em poucos passos você poderá simular parcelas e conhecer os caminhos para solicitar atendimento.</p><button class="btn yellow-btn full" data-go="1">Continuar →</button><div class="welcome-pill">✓ Simulação informativa</div><div class="smallprint">Nenhum empréstimo é liberado ou pré-aprovado nesta página.</div></div></section>';
@@ -30,18 +72,20 @@ function view(){
  case 9:return card('<p class="number">3 de 5</p><h1 class="centertext">Escolaridade</h1><p class="sub centertext">Informe seu nível de escolaridade</p>'+choices("education",["Ensino Fundamental","Ensino Médio","Ensino Superior","Pós-Graduação","Outro"],false)+'<p class="alert" id="err"></p>'+nav(10,8),60,false);
  case 10:return card('<p class="number">4 de 5</p><h1 class="centertext">Situação do CPF</h1><p class="sub centertext">Você conhece sua situação de crédito? Esta resposta não será consultada nem verificada.</p>'+choices("credit",["Tenho algumas pendências","Não conheço restrições","Não sei informar"],false)+'<div class="note">A resposta é apenas declaratória, sem consulta a serviços de proteção ao crédito.</div><p class="alert" id="err"></p>'+nav(11,9),85,false);
  case 11:return card('<div class="centertext"><div class="profile-banner"><div class="avatar">◈</div><h1>Atendimento Seu Crédito</h1><small>Solicitação de contato</small></div><h2>Converse sobre opções de crédito</h2><p class="sub">Você terminou a simulação. Não houve análise de crédito nem oferta individual.</p><div class="mini-stats"><div>✓ Etapas concluídas</div><div>◈ Contato via WhatsApp</div></div><div class="estimate">Parcela estimada<b>'+money(estimate())+'</b><small>'+st.term+' meses · Taxa ilustrativa de 2,49% ao mês</small></div></div><button class="btn orange-btn full" data-go="12">Iniciar atendimento →</button><div class="note">Um resumo sem dados pessoais poderá ser enviado voluntariamente pelo WhatsApp.</div>',100,false);
- case 12:return '<section class="center"><div class="chat"><div class="chat-head"><div class="chat-avatar">◈</div><div><b>Assistente Seu Crédito</b><small>Conversa automática de apresentação</small></div></div><div class="chat-feed" id="feed"><div class="bubble">Olá! Este é um roteiro automático. Não sou um agente humano e não faço análise ou aprovação de crédito.</div><div class="bubble">Você deseja conversar sobre a simulação de '+money(st.amount)+'?</div>'+ (st.chat?'<div class="bubble">Sua escolha: '+safe(st.chat)+'. Você pode prosseguir com o contato, se desejar.</div>':'<button class="chat-option" data-chat="Sim, esse valor">✓ Sim, esse valor</button><button class="chat-option" data-chat="Quero tirar dúvidas">? Quero tirar dúvidas</button><button class="chat-option" data-chat="Alterar valor">↩ Alterar valor</button>')+'</div><div class="chat-bottom"><p>O WhatsApp será aberto com um resumo de simulação, sem nome, CPF ou nascimento. Você confirma o envio.</p><button class="btn whatsapp full" id="wa">Conversar pelo WhatsApp ↗</button></div></div></section>';
+ case 12:return chatPanel();
+ case 13:case 14:case 15:case 16:case 17:case 18:case 19:return extendedView();
  default:return '<p>Etapa indisponível.</p>';
  }
 }
 function render(){document.querySelectorAll(".pane").forEach(x=>{x.hidden=true;x.classList.remove("show")});root.innerHTML=view();document.body.dataset.step=String(st.step);window.scrollTo({top:0,behavior:"instant"});document.title="Seu Crédito | "+(["Boas-vindas","Simulador","CPF","Identidade","Nascimento","Concluído","Renda","Finalidade","Ocupação","Escolaridade","Situação de crédito","Atendimento","Conversa"][st.step]||"Simulação")}
 function error(msg){let el=document.getElementById("err");if(el){el.textContent=msg;el.scrollIntoView({block:"nearest"})}}
-function go(n){if(n===5){st.cpf="";st.name="";st.birth=""}st.step=n;render()}
+function go(n){if(n===5){st.cpf="";st.name="";st.birth=""} if(n===18){st.email="";st.phone=""}st.step=n;render()}
 function next(n){
  if(st.step===2&&!validCPF(st.cpf))return error("Confira o CPF: os dígitos informados não são válidos.");
  if(st.step===3){if(st.name.trim().split(/\s+/).length<2)return error("Informe nome e sobrenome.");if(!validBirth(st.birth))return error("Informe uma data válida de nascimento (maior de 18 anos).")}
  let req={6:"income",7:"purpose",8:"occupation",9:"education",10:"credit"}[st.step];
  if(req&&!st[req])return error("Selecione uma opção para continuar.");
+ if(st.step===15&&!st.termsAck)return error("Confirme que compreendeu a natureza da simulação.");
  if(st.step===6&&st.payDay&&(Number(st.payDay)<1||Number(st.payDay)>31))return error("Informe um dia entre 1 e 31.");
  go(n)
 }
@@ -50,14 +94,17 @@ root.addEventListener("click",e=>{
  if(b.dataset.go!==undefined)return go(Number(b.dataset.go));
  if(b.dataset.next!==undefined)return next(Number(b.dataset.next));
  if(b.dataset.choice){st[b.dataset.choice]=b.dataset.value;root.querySelectorAll("button[data-choice]").forEach(x=>{if(x.dataset.choice!==b.dataset.choice)return;let active=x.dataset.value===b.dataset.value;x.classList.toggle("active",active);let indicator=x.querySelector("span");if(indicator)indicator.textContent=active?"✓":"○"});let err=document.getElementById("err");if(err)err.textContent="";return}
- if(b.dataset.chat){if(b.dataset.chat==="Alterar valor")return go(1);st.chat=b.dataset.chat;render();return}
+ if(b.dataset.chatAnswer!==undefined){st.chatAnswers[st.chatPhase]=b.dataset.chatAnswer;st.chatPhase++;render();return}
+ if(b.hasAttribute("data-chat-back")){st.chatPhase=Math.max(0,st.chatPhase-1);st.chatAnswers.length=st.chatPhase;render();return}
+ if(b.hasAttribute("data-chat-confirm")){st.chatPhase=6;render();return}
+ if(b.dataset.termChoice){st.term=Number(b.dataset.termChoice);const container=document.getElementById("paymentList");if(container)container.innerHTML=termOptions();return}
  if(b.id==="wa"){
  const summary=["Olá! Gostaria de conversar sobre uma simulação de empréstimo.","Valor: "+money(st.amount),"Prazo: "+st.term+" meses","Finalidade: "+(st.purpose||"Não informada"),"Parcela apenas ilustrativa: "+money(estimate()),"Não houve aprovação, consulta cadastral ou oferta de crédito."].join("\n");
  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(summary),"_blank","noopener,noreferrer");
  }
 });
-root.addEventListener("input",e=>{let x=e.target;if(x.id==="cpf"){x.value=formatCPF(x.value);st.cpf=digits(x.value)}if(x.id==="name")st.name=x.value;if(x.id==="birth")st.birth=x.value;if(x.id==="payday")st.payDay=x.value;if(x.id==="amount"){st.amount=Number(x.value);document.getElementById("amountLabel").textContent=money(st.amount);document.getElementById("previewPayment").textContent=money(estimate())}});
-root.addEventListener("change",e=>{if(e.target.id==="term"){st.term=Number(e.target.value);document.getElementById("previewTerm").textContent=st.term+" meses";document.getElementById("previewPayment").textContent=money(estimate())}});
+root.addEventListener("input",e=>{let x=e.target;if(x.id==="cpf"){x.value=formatCPF(x.value);st.cpf=digits(x.value)}if(x.id==="name")st.name=x.value;if(x.id==="birth")st.birth=x.value;if(x.id==="payday")st.payDay=x.value;if(x.id==="emailContact")st.email=x.value;if(x.id==="phoneContact")st.phone=x.value;if(x.id==="chatAmountRange"){st.amount=Number(x.value);document.getElementById("chatAmountLabel").textContent=money(st.amount);document.getElementById("chatInstallment").textContent=money(estimate())}if(x.id==="amount"){st.amount=Number(x.value);document.getElementById("amountLabel").textContent=money(st.amount);document.getElementById("previewPayment").textContent=money(estimate())}});
+root.addEventListener("change",e=>{if(e.target.id==="termsAck")st.termsAck=e.target.checked;if(e.target.id==="term"){st.term=Number(e.target.value);document.getElementById("previewTerm").textContent=st.term+" meses";document.getElementById("previewPayment").textContent=money(estimate())}});
 document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>go(Number(b.dataset.jump))));
 const legal={terms:["Termos de uso","Este site oferece um simulador informativo. Não é instituição financeira nem disponibiliza empréstimos, aprovações, consultas a CPF ou liberação de valores. A taxa matemática usada é ilustrativa e exclui IOF, tarifas, seguros e outros encargos. Não pague taxa antecipada para liberação de empréstimo."],privacy:["Privacidade","O CPF, nome e data de nascimento são digitados apenas no navegador para percorrer as etapas e não são armazenados em banco de dados nem enviados a servidores por esta aplicação. Esses campos são apagados da memória ao concluir as etapas iniciais. O WhatsApp recebe somente o resumo de valor, prazo e finalidade, mediante clique e confirmação do visitante. O serviço de hospedagem poderá registrar informações técnicas de acesso conforme sua política."],help:["Informações","Esta página não consulta nem confirma identidade ou restrições de crédito. A validação do CPF verifica apenas a integridade matemática dos dígitos. Para condições efetivas de crédito, consulte uma instituição financeira autorizada."]};
 document.querySelectorAll("[data-legal]").forEach(b=>b.addEventListener("click",()=>{let a=legal[b.dataset.legal]||legal.help;document.getElementById("legalTitle").textContent=a[0];document.getElementById("legalText").textContent=a[1];document.getElementById("legal").showModal()}));
